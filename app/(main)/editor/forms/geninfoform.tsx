@@ -4,16 +4,8 @@ import { generalInfoSchema, generalInfoType } from "@/lib/validation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-
 import { Input } from "@/components/ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export default function GenInfoForm() {
   const form = useForm<generalInfoType>({
@@ -34,25 +26,20 @@ export default function GenInfoForm() {
       </div>
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit((data) => console.log(data))}
-          className="space-y-4"
-        >
+        <form action="">
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Project name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Title" {...field} />
+                  <Input {...field} placeholder="My cool resume" autoFocus />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          <button type="submit">Submit</button>
         </form>
       </Form>
     </div>
