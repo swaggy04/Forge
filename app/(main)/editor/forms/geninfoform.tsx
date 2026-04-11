@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FieldDescription } from "@/components/ui/field";
 
 export default function GenInfoForm() {
   const form = useForm<generalInfoType>({
@@ -34,8 +35,22 @@ export default function GenInfoForm() {
               <FormItem>
                 <FormLabel>Project name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="My cool resume" autoFocus />
+                  <Input {...field} placeholder="My cool resume"  />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="A brief description of your project"  />
+                </FormControl>
+                <FieldDescription> just for the ref</FieldDescription>
                 <FormMessage />
               </FormItem>
             )}
