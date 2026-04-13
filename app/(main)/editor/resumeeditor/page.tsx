@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GenInfoForm from "../forms/geninfoform";
+import PersonalInfoForm from "../forms/personalinfoform";
 
 export default function ResumeEditor() {
     return (
@@ -13,7 +14,7 @@ export default function ResumeEditor() {
             <main className="relative grow">
                 <div className="absolute top-0 bottom-0 flex w-full">
                     <div className="md:w-1/2 w-full p-3">
-                        <GenInfoForm/>
+                        <PersonalInfoForm/>
                     </div>
                     <div className="grow md:border-r"/>
                     <div className="hidden w-1/2 md:flex bg-amber-700">

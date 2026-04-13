@@ -1,4 +1,4 @@
-import {email, refine, z} from "zod";
+import { z} from "zod";
 
 export const optionalString =z.string().trim().optional().or(z.literal(""));
 
@@ -30,4 +30,4 @@ export const personalInfoSchema =z.object({
 
 })
 
-export type perseonalInfoType=z.infer<typeof personalInfoSchema>
+export type personalInfoType=z.infer<typeof personalInfoSchema>
