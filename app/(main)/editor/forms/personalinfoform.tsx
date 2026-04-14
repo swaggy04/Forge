@@ -46,7 +46,7 @@ export default function PersonalInfoForm() {
           <FormField
             control={form.control}
             name="photo"
-            render={({ field : {value , ...fieldValues} }) => (
+            render={({ field: { value, ...fieldValues } }) => (
               <FormItem>
                 <FormLabel>Your Photo</FormLabel>
                 <FormControl>
@@ -54,9 +54,9 @@ export default function PersonalInfoForm() {
                     {...fieldValues}
                     type="file"
                     accept="image/*"
-                    onChange={(e) =>{
-                      const file = e.target.files?.[0]
-                      fieldValues.onChange(file)
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      fieldValues.onChange(file);
                     }}
                   />
                 </FormControl>
@@ -64,7 +64,19 @@ export default function PersonalInfoForm() {
               </FormItem>
             )}
           />
-
+          <FormField
+            control={form.control}
+            name="firstname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input {...field} value={(field.value as string) ?? ""} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
     </div>
