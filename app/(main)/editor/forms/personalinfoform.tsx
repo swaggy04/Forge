@@ -64,6 +64,7 @@ export default function PersonalInfoForm() {
               </FormItem>
             )}
           />
+          <div className="grid grid-cols-2 gap-3">
           <FormField
             control={form.control}
             name="firstname"
@@ -90,6 +91,7 @@ export default function PersonalInfoForm() {
               </FormItem>
             )}
           />
+          </div> 
            <FormField
             control={form.control}
             name="city"
@@ -143,8 +145,9 @@ export default function PersonalInfoForm() {
               </FormItem>
             )}
           />
-          
+         
         </form>
+        
       </Form>
     </div>
   );
