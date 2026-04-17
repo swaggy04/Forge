@@ -1,10 +1,28 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import GenInfoForm from "../forms/geninfoform";
-import PersonalInfoForm from "../forms/personalinfoform";
+import { useSearchParams } from "next/navigation";
+import { steps } from "../steps";
+
+import Breadcrumbs from "../breadcrumbs";
 
 export default function ResumeEditor() {
+
+ const searchParams = useSearchParams();
+ const currentStep = searchParams.get("step") || steps[0].key
+  
+ function setStep(key:string){
+    const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set("step",key)
+        window.history.pushState(null,"",`?${newSearchParams.toString}`)
+    
+ }
+
+       const FormComponent=  steps.find(
+            step=>step.key===currentStep
+        )?.component
+
+
     return (
         <div className="  w-full min-h-screen flex grow flex-col">
             <header className=" w-full text-center py-4 border-b-2">
@@ -14,7 +32,7 @@ export default function ResumeEditor() {
             <main className="relative grow">
                 <div className="absolute top-0 bottom-0 flex w-full">
                     <div className="md:w-1/2 w-full p-3">
-                        <PersonalInfoForm/>
+                      <Breadcrumbs currentstep={currentStep} setcurrentstep={setStep}/>
                     </div>
                     <div className="grow md:border-r"/>
                     <div className="hidden w-1/2 md:flex bg-amber-700">

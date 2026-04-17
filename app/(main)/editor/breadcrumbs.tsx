@@ -6,8 +6,7 @@ interface BreadcrumbsProps {
 
     currentstep:string;
     setcurrentstep:(step:string) => void;
-
-
+    
 }
 
 export default function Breadcrumbs({currentstep,setcurrentstep}:BreadcrumbsProps){
