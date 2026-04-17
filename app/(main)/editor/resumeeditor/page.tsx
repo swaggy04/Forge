@@ -51,7 +51,7 @@ export default function ResumeEditor() {
         </div>
         
       </main>
-      <Footer/>
+      <Footer currentSteps={currentStep} setcurrentSteps={setStep}/>
     </div>
   );
 }
