@@ -33,6 +33,7 @@ export default function ResumeEditor() {
                 <div className="absolute top-0 bottom-0 flex w-full">
                     <div className="md:w-1/2 w-full p-3">
                       <Breadcrumbs currentstep={currentStep} setcurrentstep={setStep}/>
+                      {FormComponent && <FormComponent />}
                     </div>
                     <div className="grow md:border-r"/>
                     <div className="hidden w-1/2 md:flex bg-amber-700">
