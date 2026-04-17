@@ -6,7 +6,7 @@ interface BreadcrumbsProps {
 
     currentstep:string;
     setcurrentstep:(step:string) => void;
-    
+
 }
 
 export default function Breadcrumbs({currentstep,setcurrentstep}:BreadcrumbsProps){
@@ -26,7 +26,7 @@ export default function Breadcrumbs({currentstep,setcurrentstep}:BreadcrumbsProp
                                 </BreadcrumbLink>
                             )}
                         </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
+                        <BreadcrumbSeparator className="last:hidden"/>
                     </React.Fragment>
                 ))}
             </BreadcrumbList>
