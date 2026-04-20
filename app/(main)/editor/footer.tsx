@@ -27,9 +27,11 @@ export default function Footer({currentStep,setcurrentStep}:FooterProps) {
           <div className="ml-44">
             <Button variant="secondary"
             onClick={previousStep ? ()=> setcurrentStep(previousStep):undefined}
+            disabled={!previousStep}
             >Previous</Button>
             <Button
             onClick={nextStep ? ()=> setcurrentStep(nextStep):undefined}
+            disabled={!nextStep}
             >Next</Button>
           </div>
         </div>
