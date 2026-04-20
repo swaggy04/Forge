@@ -6,10 +6,10 @@ import { steps } from "./steps";
 
 interface FooterProps {
     currentStep: string;
-    setcurrentStep: (steps: string) => void;
+    setCurrentStep: (steps: string) => void;
   }
 
-export default function Footer({currentStep,setcurrentStep}:FooterProps) {
+export default function Footer({currentStep,setCurrentStep}:FooterProps) {
 
   const previousStep = steps.find(
     (_, index)=>steps[index+1]?.key  === currentStep
@@ -26,11 +26,11 @@ export default function Footer({currentStep,setcurrentStep}:FooterProps) {
         <div className="flex items-center justify-center gap-3">
           <div className="ml-44">
             <Button variant="secondary"
-            onClick={previousStep ? ()=> setcurrentStep(previousStep):undefined}
+            onClick={previousStep ? () => setCurrentStep (previousStep) : undefined}
             disabled={!previousStep}
             >Previous</Button>
             <Button
-            onClick={nextStep ? ()=> setcurrentStep(nextStep):undefined}
+            onClick={nextStep ? () => setCurrentStep (nextStep) : undefined}
             disabled={!nextStep}
             >Next</Button>
           </div>
