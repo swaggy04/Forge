@@ -1,21 +1,22 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { steps } from "./steps";
 
 
 
 interface FooterProps {
-    currentSteps: string;
-    setcurrentSteps: (step: string) => void;
+    currentStep: string;
+    setcurrentStep: (steps: string) => void;
   }
 
-export default function Footer({currentSteps,setcurrentSteps}:FooterProps) {
+export default function Footer({currentStep,setcurrentStep}:FooterProps) {
 
   const previousStep = steps.find(
-    (_, index)=>steps[index+1].?key === currentStep
+    (_, index)=>steps[index+1]?.key  === currentStep
   )?.key 
 
   const nextStep = steps.find(
-    (_, index)=>steps[index-1].?key === currentStep
+    (_, index)=>steps[index-1]?.key === currentStep
   )?.key 
 
   
@@ -25,9 +26,11 @@ export default function Footer({currentSteps,setcurrentSteps}:FooterProps) {
         <div className="flex items-center justify-center gap-3">
           <div className="ml-44">
             <Button variant="secondary"
-            onClick={previousStep ? ()=> setcurrentstep(previousStep):undefined}
+            onClick={previousStep ? ()=> setcurrentStep(previousStep):undefined}
             >Previous</Button>
-            <Button>Next</Button>
+            <Button
+            onClick={nextStep ? ()=> setcurrentStep(nextStep):undefined}
+            >Next</Button>
           </div>
         </div>
         <Button variant="secondary" asChild>
