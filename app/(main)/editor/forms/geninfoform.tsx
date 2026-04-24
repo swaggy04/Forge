@@ -7,16 +7,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { FieldDescription } from "@/components/ui/field";
+import { EditorFormProps } from "@/lib/types";
+import { useEffect } from "react";
 
-export default function GenInfoForm() {
+export default function GenInfoForm({ResumeData,setResumeData}:EditorFormProps) {
   const form = useForm<generalInfoType>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: ResumeData.title || "",
+      description:ResumeData.description ||  "",
     },
   });
 
+  useEffect(() => {
+    const {unsubscribe} = form.watch(async (values) =>{
+      const isValid = await form.trigger();
+      if(!isValid) return 
+      setResumeData({...ResumeData, ...values})
+    })
+    return unsubscribe
+    }, [form,ResumeData,setResumeData])
+    
+  
   return (
     <div className="mx-auto space-y-6 max-w-xl">
       <div className="space-y-1.5 text-center">
