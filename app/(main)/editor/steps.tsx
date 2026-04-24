@@ -1,10 +1,11 @@
+import { EditorFormProps } from "@/lib/types";
 import GenInfoForm from "./forms/geninfoform";
 import PersonalInfoForm from "./forms/personalinfoform";
 
 
 export const steps: {
     title:string;
-    component:React.ComponentType;
+    component:React.ComponentType<EditorFormProps>;
     key: string;
 
 }[]=[
