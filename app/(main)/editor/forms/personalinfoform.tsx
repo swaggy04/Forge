@@ -13,20 +13,32 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { personalInfoSchema, personalInfoType } from "@/lib/validation";
 import { Input } from "@/components/ui/input";
+import { EditorFormProps } from "@/lib/types";
+import { useEffect } from "react";
 
-export default function PersonalInfoForm() {
+export default function PersonalInfoForm({ResumeData,setResumeData}:EditorFormProps) {
   const form = useForm<personalInfoType>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
-      firstname: "",
-      lastname: "",
-      country: "",
-      city: "",
-      email: "",
-      jobTitle: "",
-      phone: "",
+      firstname:ResumeData.firstname || "",
+      lastname: ResumeData.lastname || "",
+      country: ResumeData.country|| "",
+      city: ResumeData.city || "",
+      email:ResumeData.email || "",
+      jobTitle: ResumeData.jobTitle ||  "",
+      phone:ResumeData.phone ||  "",
     },
   });
+
+  useEffect(() => {
+  const {unsubscribe} = form.watch(async (values) =>{
+    const isValid = await form.trigger();
+    if(!isValid) return 
+    setResumeData({...ResumeData, ...values})
+  })
+  return unsubscribe
+  }, [form,ResumeData,setResumeData])
+  
 
   return (
     <div className="mx-auto space-y-6 max-w-xl">
