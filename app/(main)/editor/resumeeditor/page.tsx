@@ -1,14 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { steps } from "../steps";
 import Breadcrumbs from "../breadcrumbs";
 import Footer from "../footer";
+import { useState } from "react";
+import { resumeSchemaType } from "@/lib/validation";
 
 export default function ResumeEditor() {
   const searchParams = useSearchParams();
+
+const [ResumeData, setResumeData] = useState<resumeSchemaType>()
+
   const currentStep = searchParams.get("step") || steps[0].key;
 
   function setStep(key: string) {
