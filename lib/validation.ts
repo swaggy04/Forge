@@ -39,7 +39,7 @@ export const resumeSchema = z.object({
   ...personalInfoSchema.shape
 })
 
-export type resumeSchemaType=Omit<z.infer<typeof resumeSchema>,"photo"> & {
+export type ResumeValues=Omit<z.infer<typeof resumeSchema>,"photo"> & {
   id? :string;
   photo?: string| File|null;
 }
