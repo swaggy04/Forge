@@ -62,8 +62,8 @@ const [ResumeData, setResumeData] = useState<ResumeValues>({
 
           <div className="hidden md:block w-px bg-border" />
 
-          <div className="hidden md:flex w-1/2 bg-amber-700 items-center justify-center">
-            right
+          <div className="hidden md:flex w-1/2  items-center justify-center">
+            <pre>{JSON.stringify(ResumeData,null,2)}</pre>
           </div>
         </div>
         
