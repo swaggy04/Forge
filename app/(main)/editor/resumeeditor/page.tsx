@@ -10,8 +10,18 @@ import { ResumeValues } from "@/lib/validation";
 export default function ResumeEditor() {
   const searchParams = useSearchParams();
 
-const [ResumeData, setResumeData] = useState<ResumeValues>()
-
+const [ResumeData, setResumeData] = useState<ResumeValues>({
+  title: "",
+  description: "",
+  firstname: "",
+  lastname: "",
+  jobTitle: "",
+  city: "",
+  country: "",
+  phone: "",
+  email: "",
+  photo: null,
+});
   const currentStep = searchParams.get("step") || steps[0].key;
 
   function setStep(key: string) {
@@ -42,7 +52,11 @@ const [ResumeData, setResumeData] = useState<ResumeValues>()
             </div>
 
             <div className="w-full max-w-2xl">
-              {FormComponent && <FormComponent />}
+              {FormComponent && <FormComponent 
+              ResumeData={ResumeData}
+              setResumeData={setResumeData}
+              
+              />}
             </div>
           </div>
 
