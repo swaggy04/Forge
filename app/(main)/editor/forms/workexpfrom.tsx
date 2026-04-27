@@ -1,3 +1,4 @@
+import { Form } from "@/components/ui/form";
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, workExperienceType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +38,20 @@ export default function WorkExpForm({
             <h1 className="text-2xl font-bold">Work Experiences</h1>
             <p className="text-muted-foreground text-sm">add your work experiences </p>
         </div>
+        <Form {...form}>
+          <form className="space-y-6">
+             {fields.map(field =>(
+              <WorkeExperienceItem key={field.id}/>
+             ))}
 
+          </form>
+        </Form>
 
   </div>;
+}
+
+function WorkeExperienceItem(){
+  return <div>
+    work experiences item
+</div>
 }
