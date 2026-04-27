@@ -1,7 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, workExperienceType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
@@ -33,25 +35,38 @@ export default function WorkExpForm({
     name: "workexp",
   });
 
-  return <div className="mx-auto space-y-6 max-w-xl">
-        <div className="space-y-1.5 text-center">
-            <h1 className="text-2xl font-bold">Work Experiences</h1>
-            <p className="text-muted-foreground text-sm">add your work experiences </p>
-        </div>
-        <Form {...form}>
-          <form className="space-y-6">
-             {fields.map(field =>(
-              <WorkeExperienceItem key={field.id}/>
-             ))}
-
-          </form>
-        </Form>
-
-  </div>;
+  return (
+    <div className="mx-auto space-y-6 max-w-xl">
+      <div className="space-y-1.5 text-center">
+        <h1 className="text-2xl font-bold">Work Experiences</h1>
+        <p className="text-muted-foreground text-sm">
+          add your work experiences{" "}
+        </p>
+      </div>
+      <Form {...form}>
+        <form className="space-y-6">
+          {fields.map((field) => (
+            <WorkeExperienceItem key={field.id} />
+          ))}
+          <div className="flex justify-center p-4 ">
+            <Button size="lg" type="button"
+            onClick={()=>append({
+              position:"",
+              startDate:"",
+              endDate:"",
+              company:"",
+              description:""
+            })}>
+              <PlusIcon size={64}/>
+              
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
 }
 
-function WorkeExperienceItem(){
-  return <div>
-    work experiences item
-</div>
+function WorkeExperienceItem() {
+  return <div>work experiences item</div>;
 }
