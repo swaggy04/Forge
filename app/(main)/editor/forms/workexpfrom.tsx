@@ -3,9 +3,9 @@ import { Form } from "@/components/ui/form";
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, workExperienceType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusIcon } from "lucide-react";
+import { GripHorizontal, PlusIcon } from "lucide-react";
 import { useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 export default function WorkExpForm({
   ResumeData,
@@ -30,7 +30,7 @@ export default function WorkExpForm({
     return unsubscribe;
   }, [form, ResumeData, setResumeData]);
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "workexp",
   });
@@ -45,20 +45,29 @@ export default function WorkExpForm({
       </div>
       <Form {...form}>
         <form className="space-y-6">
-          {fields.map((field) => (
-            <WorkeExperienceItem key={field.id} />
+          {fields.map((field,index) => (
+            <WorkeExperienceItem
+              key={field.id}
+              index={index}
+              form={form}
+              remove={remove}
+            />
           ))}
           <div className="flex justify-center p-4 ">
-            <Button size="lg" type="button"
-            onClick={()=>append({
-              position:"",
-              startDate:"",
-              endDate:"",
-              company:"",
-              description:""
-            })}>
-              <PlusIcon size={64}/>
-              
+            <Button
+              size="lg"
+              type="button"
+              onClick={() =>
+                append({
+                  position: "",
+                  startDate: "",
+                  endDate: "",
+                  company: "",
+                  description: "",
+                })
+              }
+            >
+              <PlusIcon size={64} />
             </Button>
           </div>
         </form>
@@ -67,6 +76,20 @@ export default function WorkExpForm({
   );
 }
 
-function WorkeExperienceItem() {
-  return <div>work experiences item</div>;
+interface workExperienceProps{
+  form: UseFormReturn<workExperienceType>
+  index:number
+  remove: (index:number) => void
+}
+
+
+function WorkeExperienceItem({ form, index, remove }:workExperienceProps) {
+  return (
+    <div className="space-y-3 rounded-md border  bg-background p-3">
+      <div className="flex justify-between gap-2">
+          <span>Work Experience {index+1}</span>
+          <GripHorizontal className="cursor-grab text-muted-foreground size-5"/>
+      </div>
+    </div>
+  );
 }
