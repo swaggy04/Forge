@@ -1,5 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, workExperienceType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -45,7 +54,7 @@ export default function WorkExpForm({
       </div>
       <Form {...form}>
         <form className="space-y-6">
-          {fields.map((field,index) => (
+          {fields.map((field, index) => (
             <WorkeExperienceItem
               key={field.id}
               index={index}
@@ -76,20 +85,28 @@ export default function WorkExpForm({
   );
 }
 
-interface workExperienceProps{
-  form: UseFormReturn<workExperienceType>
-  index:number
-  remove: (index:number) => void
+interface workExperienceProps {
+  form: UseFormReturn<workExperienceType>;
+  index: number;
+  remove: (index: number) => void;
 }
 
-
-function WorkeExperienceItem({ form, index, remove }:workExperienceProps) {
+function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
   return (
     <div className="space-y-3 rounded-md border  bg-background p-3">
       <div className="flex justify-between gap-2">
-          <span>Work Experience {index+1}</span>
-          <GripHorizontal className="cursor-grab text-muted-foreground size-5"/>
+        <span>Work Experience {index + 1}</span>
+        <GripHorizontal className="cursor-grab text-muted-foreground size-5" />
       </div>
+      <FormField
+        control={form.control}
+        name={`workexp.${index}.position`}
+        render={({ field }) => (
+          <FormControl>
+            <Input {...field} value={(field.value as string) ?? ""} autoFocus />
+          </FormControl>
+        )}
+      />
     </div>
   );
 }
