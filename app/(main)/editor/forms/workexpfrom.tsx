@@ -102,11 +102,31 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
         control={form.control}
         name={`workexp.${index}.position`}
         render={({ field }) => (
+          <FormItem>
+            <FormLabel>position</FormLabel>
           <FormControl>
             <Input {...field} value={(field.value as string) ?? ""} autoFocus />
           </FormControl>
+          </FormItem>
+
         )}
       />
+        <FormField
+        control={form.control}
+        name={`workexp.${index}.company`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Company</FormLabel>
+          <FormControl>
+            <Input {...field} value={(field.value as string) ?? ""}  />
+          </FormControl>
+          </FormItem>
+
+        )}
+      />
+      <div className="grid grid-cols-2 gap-3">
+
+      </div>
     </div>
   );
 }
