@@ -173,6 +173,9 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
 
         )}
       />
+      <Button type="button" variant="destructive" onClick={()=>remove(index)} >
+        Remove
+      </Button>
     </div>
   );
 }
