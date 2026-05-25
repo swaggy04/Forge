@@ -21,8 +21,8 @@ export const personalInfoSchema = z.object({
       (file) => !file || file.size <= 1024 * 1024 * 4,
       "file must be less than 4mb",
     ),
-  firstname: optionalString,
-  lastname: optionalString,
+  firstName: optionalString,
+  lastName: optionalString,
   jobTitle: optionalString,
   city: optionalString,
   country: optionalString,
@@ -46,14 +46,26 @@ export const workExperienceSchema = z.object({
     .optional(),
 });
 
+export type workExperienceType = z.infer<typeof workExperienceSchema>;
 
-export type workExperienceType =z.infer<typeof workExperienceSchema>
+export const educationSchema = z.object({
+  educations: z.array(
+    z.object({
+      degree: optionalString,
+      school: optionalString,
+      startDate: optionalString,
+      endDate: optionalString,
+    }),
+  ).optional(),
+});
 
+export type educationType = z.infer<typeof educationSchema>;
 
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,
   ...personalInfoSchema.shape,
   ...workExperienceSchema.shape,
+  ...educationSchema.shape,
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
