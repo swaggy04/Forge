@@ -8,6 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, workExperienceType } from "@/lib/validation";
@@ -158,6 +159,20 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
         )}
       />
       </div>
+      <FormField
+        control={form.control}
+        name={`workexp.${index}.description`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Description</FormLabel>
+          <FormControl>
+            <Textarea {...field}
+            />
+          </FormControl>
+          </FormItem>
+
+        )}
+      />
     </div>
   );
 }
