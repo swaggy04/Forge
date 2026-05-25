@@ -125,7 +125,38 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
         )}
       />
       <div className="grid grid-cols-2 gap-3">
+        <FormField
+        control={form.control}
+        name={`workexp.${index}.startDate`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Start date</FormLabel>
+          <FormControl>
+            <Input {...field}  
+            type="date"
+            value={field.value?.slice(0,10)}
+            />
+          </FormControl>
+          </FormItem>
 
+        )}
+      />
+        <FormField
+        control={form.control}
+        name={`workexp.${index}.endDate`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>End date</FormLabel>
+          <FormControl>
+            <Input {...field}  
+            type="date"
+            value={field.value?.slice(0,10)}
+            />
+          </FormControl>
+          </FormItem>
+
+        )}
+      />
       </div>
     </div>
   );
