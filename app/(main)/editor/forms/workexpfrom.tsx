@@ -106,7 +106,8 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
           <FormItem>
             <FormLabel>position</FormLabel>
           <FormControl>
-            <Input {...field} value={(field.value as string) ?? ""} autoFocus />
+            <Input {...field} 
+            value={String(field.value ?? "")} autoFocus />
           </FormControl>
           </FormItem>
 
@@ -119,7 +120,8 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
           <FormItem>
             <FormLabel>Company</FormLabel>
           <FormControl>
-            <Input {...field} value={(field.value as string) ?? ""}  />
+            <Input {...field} 
+             value={String(field.value ?? "")}  />
           </FormControl>
           </FormItem>
 
@@ -135,7 +137,7 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
           <FormControl>
             <Input {...field}  
             type="date"
-            value={field.value as string||""}
+             value={String(field.value ?? "")}
             />
           </FormControl>
           </FormItem>
@@ -167,6 +169,7 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
             <FormLabel>Description</FormLabel>
           <FormControl>
             <Textarea {...field}
+            
             />
           </FormControl>
           </FormItem>
