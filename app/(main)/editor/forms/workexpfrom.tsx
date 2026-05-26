@@ -135,7 +135,7 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
           <FormControl>
             <Input {...field}  
             type="date"
-            value={field.value?.slice(0,10)}
+            value={field.value as string||""}
             />
           </FormControl>
           </FormItem>
@@ -151,7 +151,7 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
           <FormControl>
             <Input {...field}  
             type="date"
-            value={field.value?.slice(0,10)}
+            value={field.value as string||""}
             />
           </FormControl>
           </FormItem>

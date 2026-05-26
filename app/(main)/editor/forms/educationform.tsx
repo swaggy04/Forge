@@ -30,7 +30,7 @@ export default function EducationForm({
       if (!isValid) return;
       setResumeData({
         ...ResumeData,
-        workexp: values.educations?.filter((edu) => edu !== undefined) || [],
+        educations: values.educations?.filter((edu) => edu !== undefined) || [],
       });
     });
     return unsubscribe;
@@ -137,7 +137,7 @@ function EducationItems({ form, index, remove }: EducationProps) {
                 <Input
                   {...field}
                   type="date"
-                  value={field.value?.slice(0, 10)}
+                  value={field.value as string||""}
                 />
               </FormControl>
             </FormItem>
@@ -153,7 +153,7 @@ function EducationItems({ form, index, remove }: EducationProps) {
                 <Input
                   {...field}
                   type="date"
-                  value={field.value?.slice(0, 10)}
+                  value={field.value as string||""}
                 />
               </FormControl>
             </FormItem>
