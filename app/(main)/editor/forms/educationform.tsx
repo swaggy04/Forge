@@ -90,7 +90,7 @@ function EducationItems({ form, index, remove }: EducationProps) {
   return (
     <div className="space-y-3 rounded-md border  bg-background p-3">
       <div className="flex justify-between gap-2">
-        <span>Education{index + 1}</span>
+        <span>Education</span>
         <GripHorizontal className="cursor-grab text-muted-foreground size-5" />
       </div>
 
@@ -160,6 +160,9 @@ function EducationItems({ form, index, remove }: EducationProps) {
           )}
         />
       </div>
+      <Button type="button" variant="destructive" onClick={()=>remove(index)} >
+        Remove
+      </Button>
     </div>
   );
 }
