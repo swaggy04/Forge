@@ -43,8 +43,10 @@ interface EducationProps {
   remove: (index: number) => void;
 }
 
-function EducationItems(){
+function EducationItems({form,index,remove}:EducationProps){
     return(
-        <div></div>
+        <div>
+            
+        </div>
     )
 }
