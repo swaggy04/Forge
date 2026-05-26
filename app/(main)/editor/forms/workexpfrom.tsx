@@ -169,7 +169,7 @@ function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
             <FormLabel>Description</FormLabel>
           <FormControl>
             <Textarea {...field}
-            
+             value={(field.value as string | undefined) ?? ""}
             />
           </FormControl>
           </FormItem>
