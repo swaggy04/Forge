@@ -2,7 +2,7 @@ import { EditorFormProps } from "@/lib/types";
 import { educationSchema, educationType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 export default function EducationForm({ResumeData,setResumeData}:EditorFormProps){
     const form = useForm<educationType>({
@@ -36,4 +36,15 @@ useEffect(() => {
     return <div>
 
     </div>
+}
+interface EducationProps {
+  form: UseFormReturn<educationType>;
+  index: number;
+  remove: (index: number) => void;
+}
+
+function EducationItems(){
+    return(
+        <div></div>
+    )
 }
