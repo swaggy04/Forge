@@ -52,6 +52,10 @@ export default function SkillForm({
               <textarea
               {...field}
               placeholder="e.g. React.js,Node.js..."
+              onChange={(e)=>{
+                const skills = e.target.value.split(",");
+                field.onChange(skills);
+              }}
               />
             </FormControl>
           </FormItem>
