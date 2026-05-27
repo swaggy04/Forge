@@ -21,6 +21,7 @@ const form = useForm<skillType>({
        skills:values.skills
        ?.filter( skill => skill!==undefined)
        .map(skill => skill.trim())
+       .filter(skill=>skill!=="")
       });
     });
     return unsubscribe;
