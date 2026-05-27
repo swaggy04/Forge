@@ -1,8 +1,9 @@
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { EditorFormProps } from "@/lib/types";
 import { skillSchema, skillType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Form, useForm } from "react-hook-form";
 
 export default function SkillForm({
   ResumeData,
@@ -37,6 +38,30 @@ export default function SkillForm({
           add your work Educations{" "}
         </p>
       </div>
+      <Form {...form}>
+        <form className="space-y-6">
+          <FormField
+          control={form.control}
+          name="skills"
+          render={({field})=>(
+          <FormItem>
+            <FormLabel>
+              Skills
+            </FormLabel>
+            <FormControl>
+              <textarea
+              {...field}
+              placeholder="e.g. React.js,Node.js..."
+              />
+            </FormControl>
+          </FormItem>
+
+          )}
+          />
+
+        </form>
+
+      </Form>
     </div>
   );
 }
