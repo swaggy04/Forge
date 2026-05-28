@@ -6,7 +6,7 @@ interface PreviewSectionProps{
 }
 
 export default function PreviewSection({resumeData,setResumeData}:PreviewSectionProps){
-    return <div className="hidden md:flex w-1/2  items-center justify-center">
+    return <div className="hidden md:flex w-1/2">
         <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3 ">
 
         </div>

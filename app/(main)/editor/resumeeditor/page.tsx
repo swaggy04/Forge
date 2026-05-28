@@ -61,7 +61,7 @@ const [ResumeData, setResumeData] = useState<ResumeValues>({
             </div>
           </div>
 
-          <div className="hidden md:block w-px bg-border" />
+          
 
           <PreviewSection
             resumeData={ResumeData}
