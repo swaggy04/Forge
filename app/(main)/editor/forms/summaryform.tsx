@@ -44,7 +44,8 @@ export default function SummaryForm({
                 <FormLabel>Professional Summary</FormLabel>
                 <FormControl>
                   <textarea
-                  
+                  {...field}
+                  placeholder="write your professional summary"
                   />
                 </FormControl>
               </FormItem>
