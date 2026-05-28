@@ -16,17 +16,17 @@ import { Input } from "@/components/ui/input";
 import { EditorFormProps } from "@/lib/types";
 import { useEffect } from "react";
 
-export default function PersonalInfoForm({ResumeData,setResumeData}:EditorFormProps) {
+export default function PersonalInfoForm({resumeData,setResumeData}:EditorFormProps) {
   const form = useForm<personalInfoType>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
-      firstname:ResumeData.firstname || "",
-      lastname: ResumeData.lastname || "",
-      country: ResumeData.country|| "",
-      city: ResumeData.city || "",
-      email:ResumeData.email || "",
-      jobTitle: ResumeData.jobTitle ||  "",
-      phone:ResumeData.phone ||  "",
+      firstname:resumeData.firstName || "",
+      lastname: resumeData.lastName || "",
+      country: resumeData.country|| "",
+      city: resumeData.city || "",
+      email:resumeData.email || "",
+      jobTitle: resumeData.jobTitle ||  "",
+      phone:resumeData.phone ||  "",
     },
   });
 
@@ -34,10 +34,10 @@ export default function PersonalInfoForm({ResumeData,setResumeData}:EditorFormPr
   const {unsubscribe} = form.watch(async (values) =>{
     const isValid = await form.trigger();
     if(!isValid) return 
-    setResumeData({...ResumeData, ...values})
+    setResumeData({...resumeData, ...values})
   })
   return unsubscribe
-  }, [form,ResumeData,setResumeData])
+  }, [form,resumeData,setResumeData])
   
 
   return (

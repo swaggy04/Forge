@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import {  useForm } from "react-hook-form";
 
 export default function SkillForm({
-  ResumeData,
+  resumeData,
   setResumeData,
 }: EditorFormProps) {
   const form = useForm<skillType>({
     resolver: zodResolver(skillSchema),
     defaultValues: {
-      skills: ResumeData.skills || [],
+      skills: resumeData.skills || [],
     },
   });
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function SkillForm({
       const isValid = await form.trigger();
       if (!isValid) return;
       setResumeData({
-        ...ResumeData,
+        ...resumeData,
         skills: values.skills
           ?.filter((skill) => skill !== undefined)
           .map((skill) => skill.trim())
@@ -28,7 +28,7 @@ export default function SkillForm({
       });
     });
     return unsubscribe;
-  }, [form, ResumeData, setResumeData]);
+  }, [form, resumeData, setResumeData]);
 
   return (
     <div className="mx-auto space-y-6 max-w-xl">
