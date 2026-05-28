@@ -35,17 +35,18 @@ export default function SummaryForm({
         <p className="text-muted-foreground text-sm">add summary</p>
       </div>
       <Form {...form}>
-        <form>
+        <form className="space-y-3">
           <FormField
             control={form.control}
             name="summary"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Professional Summary</FormLabel>
+                <FormLabel >Professional Summary</FormLabel>
                 <FormControl>
                   <textarea
                   {...field}
-                  placeholder="write your professional summary"
+                  placeholder="write in brief"
+                  className="border-2 p-3"
                   />
                 </FormControl>
               </FormItem>
