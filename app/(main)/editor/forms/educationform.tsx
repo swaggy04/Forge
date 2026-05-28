@@ -14,13 +14,13 @@ import { useEffect } from "react";
 import { Form, useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 export default function EducationForm({
-  ResumeData,
+  resumeData,
   setResumeData,
 }: EditorFormProps) {
   const form = useForm<educationType>({
     resolver: zodResolver(educationSchema),
     defaultValues: {
-      educations: ResumeData.educations || [],
+      educations: resumeData.educations || [],
     },
   });
 
@@ -29,12 +29,12 @@ export default function EducationForm({
       const isValid = await form.trigger();
       if (!isValid) return;
       setResumeData({
-        ...ResumeData,
+        ...resumeData,
         educations: values.educations?.filter((edu) => edu !== undefined) || [],
       });
     });
     return unsubscribe;
-  }, [form, ResumeData, setResumeData]);
+  }, [form, resumeData, setResumeData]);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,

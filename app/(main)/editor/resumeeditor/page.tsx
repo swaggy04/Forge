@@ -11,7 +11,7 @@ import PreviewSection from "../previewsection";
 export default function ResumeEditor() {
   const searchParams = useSearchParams();
 
-const [ResumeData, setResumeData] = useState<ResumeValues>({
+const [resumeData, setResumeData] = useState<ResumeValues>({
   title: "",
   description: "",
   firstname: "",
@@ -54,7 +54,7 @@ const [ResumeData, setResumeData] = useState<ResumeValues>({
 
             <div className="w-full max-w-2xl">
               {FormComponent && <FormComponent 
-              ResumeData={ResumeData}
+              resumeData={resumeData}
               setResumeData={setResumeData}
               
               />}
@@ -64,7 +64,7 @@ const [ResumeData, setResumeData] = useState<ResumeValues>({
           
 
           <PreviewSection
-            resumeData={ResumeData}
+            resumeData={resumeData}
               setResumeData={setResumeData}
               
           />

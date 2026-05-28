@@ -1,7 +1,7 @@
 import { ResumeValues } from "./validation";
 
 export interface EditorFormProps {
-    ResumeData : ResumeValues
+    resumeData : ResumeValues
     setResumeData: (data:ResumeValues) => void;
 
 }
