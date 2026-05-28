@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export default function SummaryForm({
-  ResumeData,
+  resumeData,
   setResumeData,
 }: EditorFormProps) {
   const form = useForm<summaryType>({
     resolver: zodResolver(summarySchema),
     defaultValues: {
-      summary: ResumeData.summary || "",
+      summary: resumeData.summary || "",
     },
   });
 
@@ -21,12 +21,12 @@ export default function SummaryForm({
       const isValid = await form.trigger();
       if (!isValid) return;
       setResumeData({
-        ...ResumeData,
+        ...resumeData,
         ...values,
       });
     });
     return unsubscribe;
-  }, [form, ResumeData, setResumeData]);
+  }, [form, resumeData, setResumeData]);
 
   return (
     <div className="mx-auto space-y-6 max-w-xl">

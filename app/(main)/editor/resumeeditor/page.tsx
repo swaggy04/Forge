@@ -14,8 +14,8 @@ export default function ResumeEditor() {
 const [resumeData, setResumeData] = useState<ResumeValues>({
   title: "",
   description: "",
-  firstname: "",
-  lastname: "",
+  firstName: "",
+  lastName: "",
   jobTitle: "",
   city: "",
   country: "",

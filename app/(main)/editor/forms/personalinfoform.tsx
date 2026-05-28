@@ -9,158 +9,323 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { personalInfoSchema, personalInfoType } from "@/lib/validation";
 import { Input } from "@/components/ui/input";
+
 import { EditorFormProps } from "@/lib/types";
+
+import {
+  personalInfoSchema,
+  personalInfoType,
+} from "@/lib/validation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useEffect } from "react";
 
-export default function PersonalInfoForm({resumeData,setResumeData}:EditorFormProps) {
+import { useForm } from "react-hook-form";
+
+export default function PersonalInfoForm({
+  resumeData,
+  setResumeData,
+}: EditorFormProps) {
+
   const form = useForm<personalInfoType>({
     resolver: zodResolver(personalInfoSchema),
+
     defaultValues: {
-      firstname:resumeData.firstName || "",
-      lastname: resumeData.lastName || "",
-      country: resumeData.country|| "",
+      firstName: resumeData.firstName || "",
+      lastName: resumeData.lastName || "",
+
+      jobTitle: resumeData.jobTitle || "",
+
       city: resumeData.city || "",
-      email:resumeData.email || "",
-      jobTitle: resumeData.jobTitle ||  "",
-      phone:resumeData.phone ||  "",
+      country: resumeData.country || "",
+
+      email: resumeData.email || "",
+      phone: resumeData.phone || "",
     },
   });
 
   useEffect(() => {
-  const {unsubscribe} = form.watch(async (values) =>{
-    const isValid = await form.trigger();
-    if(!isValid) return 
-    setResumeData({...resumeData, ...values})
-  })
-  return unsubscribe
-  }, [form,resumeData,setResumeData])
-  
+
+    const subscription = form.watch((values) => {
+
+      setResumeData({
+        ...resumeData,
+        ...values,
+      });
+
+    });
+
+    return () => subscription.unsubscribe();
+
+  }, [form, resumeData, setResumeData]);
 
   return (
-    <div className="mx-auto space-y-6 max-w-xl">
+    <div className="mx-auto max-w-xl space-y-6">
+
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-bold">Personal Info</h2>
+
+        <h2 className="text-2xl font-bold">
+          Personal Info
+        </h2>
+
         <p className="text-sm text-muted-foreground">
-          tell something about yourself
+          Tell something about yourself
         </p>
+
       </div>
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit((data) => console.log(data))}
-          className="space-y-4"
-        >
-          {/* PHOTO FIELD */}
+
+        <div className="space-y-4">
+
+          {/* PHOTO */}
+
           <FormField
             control={form.control}
             name="photo"
             render={({ field: { value, ...fieldValues } }) => (
               <FormItem>
-                <FormLabel>Your Photo</FormLabel>
+
+                <FormLabel>
+                  Your Photo
+                </FormLabel>
+
                 <FormControl>
+
                   <Input
                     {...fieldValues}
                     type="file"
                     accept="image/*"
+
                     onChange={(e) => {
-                      const file = e.target.files?.[0];
+                      const file =
+                        e.target.files?.[0];
+
                       fieldValues.onChange(file);
                     }}
                   />
+
                 </FormControl>
+
                 <FormMessage />
+
               </FormItem>
             )}
           />
+
+          {/* FIRST + LAST */}
+
           <div className="grid grid-cols-2 gap-3">
+
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+
+                  <FormLabel>
+                    First Name
+                  </FormLabel>
+
+                  <FormControl>
+
+                    <Input
+                      {...field}
+                      value={
+                        (field.value as string | undefined) ?? ""
+                      }
+                    />
+
+                  </FormControl>
+
+                  <FormMessage />
+
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+
+                  <FormLabel>
+                    Last Name
+                  </FormLabel>
+
+                  <FormControl>
+
+                    <Input
+                      {...field}
+                      value={
+                        (field.value as string | undefined) ?? ""
+                      }
+                    />
+
+                  </FormControl>
+
+                  <FormMessage />
+
+                </FormItem>
+              )}
+            />
+
+          </div>
+
+          {/* JOB TITLE */}
+
           <FormField
             control={form.control}
-            name="firstname"
+            name="jobTitle"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+
+                <FormLabel>
+                  Job Title
+                </FormLabel>
+
                 <FormControl>
-                  <Input {...field} value={(field.value as string) ?? ""} />
+
+                  <Input
+                    {...field}
+                    value={
+                      (field.value as string | undefined) ?? ""
+                    }
+                  />
+
                 </FormControl>
+
                 <FormMessage />
+
               </FormItem>
             )}
           />
-           <FormField
-            control={form.control}
-            name="lastname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name</FormLabel>
-                <FormControl>
-                  <Input {...field} value={(field.value as string) ?? ""} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          </div> 
-           <FormField
+
+          {/* CITY */}
+
+          <FormField
             control={form.control}
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+
+                <FormLabel>
+                  City
+                </FormLabel>
+
                 <FormControl>
-                  <Input {...field} value={(field.value as string) ?? ""} />
+
+                  <Input
+                    {...field}
+                    value={
+                      (field.value as string | undefined) ?? ""
+                    }
+                  />
+
                 </FormControl>
+
                 <FormMessage />
+
               </FormItem>
             )}
-            
           />
-           <FormField
+
+          {/* COUNTRY */}
+
+          <FormField
             control={form.control}
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Country</FormLabel>
+
+                <FormLabel>
+                  Country
+                </FormLabel>
+
                 <FormControl>
-                  <Input {...field} value={(field.value as string) ?? ""} />
+
+                  <Input
+                    {...field}
+                    value={
+                      (field.value as string | undefined) ?? ""
+                    }
+                  />
+
                 </FormControl>
+
                 <FormMessage />
+
               </FormItem>
             )}
           />
-           <FormField
+
+          {/* EMAIL */}
+
+          <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+
+                <FormLabel>
+                  Email
+                </FormLabel>
+
                 <FormControl>
-                  <Input {...field} value={(field.value as string) ?? ""} type="email"/>
+
+                  <Input
+                    {...field}
+                    type="email"
+                    value={
+                      (field.value as string | undefined) ?? ""
+                    }
+                  />
+
                 </FormControl>
+
                 <FormMessage />
+
               </FormItem>
             )}
           />
-           <FormField
+
+          {/* PHONE */}
+
+          <FormField
             control={form.control}
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+
+                <FormLabel>
+                  Phone
+                </FormLabel>
+
                 <FormControl>
-                  <Input {...field} value={(field.value as string) ?? ""} type="tel" />
+
+                  <Input
+                    {...field}
+                    type="tel"
+                    value={
+                      (field.value as string | undefined) ?? ""
+                    }
+                  />
+
                 </FormControl>
+
                 <FormMessage />
+
               </FormItem>
             )}
           />
-         
-        </form>
-        
+
+        </div>
+
       </Form>
+
     </div>
   );
 }
