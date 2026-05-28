@@ -1,3 +1,4 @@
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { EditorFormProps } from "@/lib/types";
 import { summarySchema, summaryType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,10 +32,26 @@ export default function SummaryForm({
     <div className="mx-auto space-y-6 max-w-xl">
       <div className="space-y-1.5 text-center">
         <h1 className="text-2xl font-bold">Summary</h1>
-        <p className="text-muted-foreground text-sm">
-          add summary
-        </p>
+        <p className="text-muted-foreground text-sm">add summary</p>
       </div>
+      <Form {...form}>
+        <form>
+          <FormField
+            control={form.control}
+            name="summary"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Professional Summary</FormLabel>
+                <FormControl>
+                  <textarea
+                  
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
     </div>
   );
 }
