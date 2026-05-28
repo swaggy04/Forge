@@ -5,33 +5,36 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export default function SummaryForm({
-    ResumeData,
-    setResumeData
-}:EditorFormProps){
+  ResumeData,
+  setResumeData,
+}: EditorFormProps) {
+  const form = useForm<summaryType>({
+    resolver: zodResolver(summarySchema),
+    defaultValues: {
+      summary: ResumeData.summary || "",
+    },
+  });
 
+  useEffect(() => {
+    const { unsubscribe } = form.watch(async (values) => {
+      const isValid = await form.trigger();
+      if (!isValid) return;
+      setResumeData({
+        ...ResumeData,
+        ...values,
+      });
+    });
+    return unsubscribe;
+  }, [form, ResumeData, setResumeData]);
 
-    const form = useForm<summaryType>({
-        resolver:zodResolver(summarySchema),
-        defaultValues:{
-            summary:ResumeData.summary || ""
-        },
-    })
-
-     useEffect(() => {
-        const { unsubscribe } = form.watch(async (values) => {
-          const isValid = await form.trigger();
-          if (!isValid) return;
-          setResumeData({
-            ...ResumeData,
-           ...values
-          });
-        });
-        return unsubscribe;
-      }, [form, ResumeData, setResumeData]);
-
-    return(
-        <div>
-
-        </div>
-    )
+  return (
+    <div className="mx-auto space-y-6 max-w-xl">
+      <div className="space-y-1.5 text-center">
+        <h1 className="text-2xl font-bold">Summary</h1>
+        <p className="text-muted-foreground text-sm">
+          add summary
+        </p>
+      </div>
+    </div>
+  );
 }
