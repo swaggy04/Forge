@@ -10,12 +10,12 @@ import { FieldDescription } from "@/components/ui/field";
 import { EditorFormProps } from "@/lib/types";
 import { useEffect } from "react";
 
-export default function GenInfoForm({ResumeData,setResumeData}:EditorFormProps) {
+export default function GenInfoForm({resumeData,setResumeData}:EditorFormProps) {
   const form = useForm<generalInfoType>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      title: ResumeData.title || "",
-      description:ResumeData.description ||  "",
+      title: resumeData.title || "",
+      description:resumeData.description ||  "",
     },
   });
 
@@ -23,10 +23,10 @@ export default function GenInfoForm({ResumeData,setResumeData}:EditorFormProps) 
     const {unsubscribe} = form.watch(async (values) =>{
       const isValid = await form.trigger();
       if(!isValid) return 
-      setResumeData({...ResumeData, ...values})
+      setResumeData({...resumeData, ...values})
     })
     return unsubscribe
-    }, [form,ResumeData,setResumeData])
+    }, [form,resumeData,setResumeData])
     
   
   return (
