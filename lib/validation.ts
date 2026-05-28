@@ -80,7 +80,8 @@ export const resumeSchema = z.object({
   ...personalInfoSchema.shape,
   ...workExperienceSchema.shape,
   ...educationSchema.shape,
-  ...skillSchema.shape
+  ...skillSchema.shape,
+  ...summarySchema.shape
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
