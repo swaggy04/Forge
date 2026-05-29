@@ -1,3 +1,4 @@
+import PreviewPage from "@/components/previewpage"
 import { ResumeValues } from "@/lib/validation"
 
 interface PreviewSectionProps{
@@ -8,7 +9,10 @@ interface PreviewSectionProps{
 export default function PreviewSection({resumeData,setResumeData}:PreviewSectionProps){
     return <div className="hidden md:flex w-1/2">
         <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3 ">
-
+            <PreviewPage
+            resumeData={resumeData}
+            classname="max-w-2xl shadow-md"
+            />
         </div>
     </div>
 }
