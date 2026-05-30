@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
 import { ResumeValues } from "@/lib/validation"
+import { useRef } from "react"
 
 interface PreviewPageProps {
     resumeData:ResumeValues
@@ -9,7 +10,13 @@ interface PreviewPageProps {
 
 
 export default function PreviewPage({resumeData,classname}:PreviewPageProps){
-    return <div className= {cn("bg-white text-black h-fit w-full aspect-[210/297]",classname)}>
+
+const containerRef= useRef<HTMLDivElement>(null)
+
+    return <div className= {cn("bg-white text-black h-fit w-full aspect-[210/297]",classname)}
+    ref={containerRef}
+    >
+
         <h1 className="p-6 font-bold text-3xl">
                 this text should change color with the div
         </h1>
