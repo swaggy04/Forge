@@ -26,10 +26,25 @@ const {width} = useDimensions(containerRef)
             zoom:(1/794)*width
         }}
         >
-        <h1 className="p-6 font-bold text-3xl">
-                this text should change color with the div
-        </h1>
+        
         </div>
     </div>
     )
+}
+
+
+interface ResumeSectionProp{
+    resumeData:ResumeValues
+}
+
+function PersonelInfoHeader({resumeData}:ResumeSectionProp){
+    const{photo,jobTitle,firstName,lastName,city,country,phone,email} = resumeData
+     const photoSrc =
+    typeof photo === "string"
+      ? photo
+      : photo instanceof File
+        ? URL.createObjectURL(photo)
+        : "";
+
+
 }
