@@ -1,3 +1,4 @@
+import useDimensions from "@/hooks/usedimension"
 import { cn } from "@/lib/utils"
 import { ResumeValues } from "@/lib/validation"
 import { useRef } from "react"
@@ -13,12 +14,21 @@ export default function PreviewPage({resumeData,classname}:PreviewPageProps){
 
 const containerRef= useRef<HTMLDivElement>(null)
 
-    return <div className= {cn("bg-white text-black h-fit w-full aspect-[210/297]",classname)}
+const {width} = useDimensions(containerRef)
+
+    return (
+    <div className= {cn("bg-white text-black h-fit w-full aspect-[210/297]",classname)}
     ref={containerRef}
     >
-
+        <div
+        style={{
+            zoom:(1/794)*width
+        }}
+        >
         <h1 className="p-6 font-bold text-3xl">
                 this text should change color with the div
         </h1>
+        </div>
     </div>
+    )
 }
