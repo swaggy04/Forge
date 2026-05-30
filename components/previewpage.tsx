@@ -1,6 +1,7 @@
 import useDimensions from "@/hooks/usedimension"
 import { cn } from "@/lib/utils"
 import { ResumeValues } from "@/lib/validation"
+import Image from "next/image"
 import { useRef } from "react"
 
 interface PreviewPageProps {
@@ -45,6 +46,19 @@ function PersonelInfoHeader({resumeData}:ResumeSectionProp){
       : photo instanceof File
         ? URL.createObjectURL(photo)
         : "";
+return <div className="flex items-center gap-6">
+    {
+        photoSrc && (
+            <Image
+            src={photoSrc}
+            width={100}
+            height={100}
+            alt="your photo"
+            className="object-cover aspect-square"
+            />
+        )
+    }
 
+</div>
 
 }
