@@ -63,7 +63,7 @@ function PersonelInfoHeader({ resumeData }: ResumeSectionProp) {
         />
       )}
       <div className="space-y-2.5">
-        <div className="sapce-y-1">
+        <div className="space-y-1">
           <p className="text-3xl font-bold">
             {firstName} {lastName}
           </p>
