@@ -62,15 +62,15 @@ return <div className="flex items-center gap-6">
         <div className="sapce-y-1">
             <p className="text-3xl font-bold">
                 {firstName} {lastName}
-                <p className="font-medium text-2xl">{jobTitle}</p>
             </p>
+              <p className="font-medium text-2xl">{jobTitle}</p>
         </div>
         <p className=" text-gray-500">
             {city}
             {city && country ? ", " :"" }
             {country}
             {(city || country ) && (phone || email)?" • ":""}
-            {[phone||email].filter(Boolean).join()}
+            {[phone,email].filter(Boolean).join("•")}
 
         </p>
     </div>
