@@ -70,7 +70,7 @@ return <div className="flex items-center gap-6">
             {city && country ? ", " :"" }
             {country}
             {(city || country ) && (phone || email)?" • ":""}
-            {[phone,email].filter(Boolean).join("•")}
+            {[phone,email].filter(Boolean).join(" • ")}
 
         </p>
     </div>
