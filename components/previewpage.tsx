@@ -27,7 +27,7 @@ const {width} = useDimensions(containerRef)
             zoom:(1/794)*width
         }}
         >
-        
+        <PersonelInfoHeader resumeData={resumeData}/>
         </div>
     </div>
     )
@@ -58,6 +58,13 @@ return <div className="flex items-center gap-6">
             />
         )
     }
+    <div className="space-y-2.5">
+        <div className="sapce-y-1">
+            <p className="text-3xl font-bold">
+                {firstName} {lastName}
+            </p>
+        </div>
+    </div>
 
 </div>
 
