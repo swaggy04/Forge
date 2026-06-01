@@ -3,7 +3,8 @@ import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { useRef } from "react";
-import { boolean, object } from "zod";
+import { boolean } from "zod";
+import {formatDate} from "date-fns";
 
 interface PreviewPageProps {
   resumeData: ResumeValues;
@@ -110,7 +111,31 @@ function WorkExpSection({resumeData}:ResumeSectionProp){
   )
 
   if(!WorkExpNotEmpty?.length) return null;
-  
 
+  return(
+     <>
+  <hr className="border-2 "/>
+    <div className="space-y-2">
+        <p className="text-lg font-semibold">
+            Work Experience
+        </p>
+        {WorkExpNotEmpty.map((exp,index)=>(
+          <div key={index} className="break-inside-avoid space-y-1">
+              <div className="flex items-center justify-between text-sm font-semibold">
+              <span>{exp.position}</span>
+              {exp.startDate && (
+                <span>
+                  {formatDate(exp.startDate,"MM/yyyy")}-{" "}
+                  {exp.endDate ? formatDate(exp.endDate,"MM/yyyy"):""}
+                </span>
+              )}
+              </div>
+          </div>
+        ))}
+      
+    </div>
+  </>
   
+  ) 
+ 
 }
