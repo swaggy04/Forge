@@ -18,13 +18,13 @@ import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 export default function WorkExpForm({
-  ResumeData,
+  resumeData,
   setResumeData,
 }: EditorFormProps) {
   const form = useForm<workExperienceType>({
     resolver: zodResolver(workExperienceSchema),
     defaultValues: {
-      workexp: ResumeData.workexp || [],
+      workexp: resumeData.workexp || [],
     },
   });
 
@@ -33,12 +33,12 @@ export default function WorkExpForm({
       const isValid = await form.trigger();
       if (!isValid) return;
       setResumeData({
-        ...ResumeData,
+        ...resumeData,
         workexp: values.workexp?.filter((exp) => exp !== undefined) || [],
       });
     });
     return unsubscribe;
-  }, [form, ResumeData, setResumeData]);
+  }, [form, resumeData, setResumeData]);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
