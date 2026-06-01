@@ -35,6 +35,7 @@ export default function PreviewPage({
       >
         <PersonelInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData}/>
+        <WorkExpSection resumeData={resumeData}/>
       </div>
     </div>
   );
@@ -130,6 +131,8 @@ function WorkExpSection({resumeData}:ResumeSectionProp){
                 </span>
               )}
               </div>
+              <p className="text-xs font-semibold">{exp.company}</p>
+              <div className="whitespace-pre-line text-xs">{exp.description}</div>
           </div>
         ))}
       
