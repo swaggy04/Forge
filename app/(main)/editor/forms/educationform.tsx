@@ -1,18 +1,29 @@
 import { Button } from "@/components/ui/button";
+
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
+
 import { EditorFormProps } from "@/lib/types";
 import { educationSchema, educationType } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { GripHorizontal, PlusIcon } from "lucide-react";
-import { useEffect } from "react";
-import { Form, useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { GripHorizontal, PlusIcon } from "lucide-react";
+
+import { useEffect } from "react";
+
+import {
+  useFieldArray,
+  useForm,
+  UseFormReturn,
+} from "react-hook-form";
 export default function EducationForm({
   resumeData,
   setResumeData,
@@ -50,7 +61,7 @@ export default function EducationForm({
         </p>
       </div>
       <Form {...form}>
-        <form className="space-y-6">
+        <div className="space-y-6">
           {fields.map((field, index) => (
             <EducationItems
               key={field.id}
@@ -75,7 +86,7 @@ export default function EducationForm({
               <PlusIcon size={64} />
             </Button>
           </div>
-        </form>
+        </div>
       </Form>
     </div>
   );
