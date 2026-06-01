@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { useRef } from "react";
+import { boolean, object } from "zod";
 
 interface PreviewPageProps {
   resumeData: ResumeValues;
@@ -97,4 +98,19 @@ function SummarySection({ resumeData }: ResumeSectionProp) {
     </div>
   </>
   )
+}
+
+
+function WorkExpSection({resumeData}:ResumeSectionProp){
+
+  const {workexp} = resumeData;
+
+  const WorkExpNotEmpty = workexp?.filter(
+    (exp)=>Object.values(exp).filter(boolean).length > 0
+  )
+
+  if(!WorkExpNotEmpty?.length) return null;
+  
+
+  
 }
