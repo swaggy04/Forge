@@ -4,7 +4,8 @@ import { ResumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { useRef } from "react";
 import { boolean } from "zod";
-import {formatDate} from "date-fns";
+import { formatDate } from "date-fns";
+import { Badge } from "lucide-react";
 
 interface PreviewPageProps {
   resumeData: ResumeValues;
@@ -34,8 +35,10 @@ export default function PreviewPage({
         }}
       >
         <PersonelInfoHeader resumeData={resumeData} />
-        <SummarySection resumeData={resumeData}/>
-        <WorkExpSection resumeData={resumeData}/>
+        <SummarySection resumeData={resumeData} />
+        <WorkExpSection resumeData={resumeData} />
+        <EDucationSection resumeData={resumeData} />
+        <SkillSection resumeData={resumeData} />
       </div>
     </div>
   );
@@ -88,96 +91,107 @@ function SummarySection({ resumeData }: ResumeSectionProp) {
   const { summary } = resumeData;
   if (!summary) return null;
 
-  return(
-  <>
-  <hr className="border-2 "/>
-    <div className="space-y-2">
-        <p className="text-lg font-semibold">
-            Professional Profile
-        </p>
+  return (
+    <>
+      <hr className="border-2 " />
+      <div className="space-y-2">
+        <p className="text-lg font-semibold">Professional Profile</p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
-
-    </div>
-  </>
-  )
+      </div>
+    </>
+  );
 }
 
-
-function WorkExpSection({resumeData}:ResumeSectionProp){
-
-  const {workexp} = resumeData;
+function WorkExpSection({ resumeData }: ResumeSectionProp) {
+  const { workexp } = resumeData;
 
   const WorkExpNotEmpty = workexp?.filter(
-    (exp)=>Object.values(exp).filter(boolean).length > 0
-  )
+    (exp) => Object.values(exp).filter(boolean).length > 0,
+  );
 
-  if(!WorkExpNotEmpty?.length) return null;
+  if (!WorkExpNotEmpty?.length) return null;
 
-  return(
-     <>
-  <hr className="border-2 "/>
-    <div className="space-y-2">
-        <p className="text-lg font-semibold">
-            Work Experience
-        </p>
-        {WorkExpNotEmpty.map((exp,index)=>(
+  return (
+    <>
+      <hr className="border-2 " />
+      <div className="space-y-2">
+        <p className="text-lg font-semibold">Work Experience</p>
+        {WorkExpNotEmpty.map((exp, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
-              <div className="flex items-center justify-between text-sm font-semibold">
+            <div className="flex items-center justify-between text-sm font-semibold">
               <span>{exp.position}</span>
               {exp.startDate && (
                 <span>
-                  {formatDate(exp.startDate,"MM/yyyy")}-{" "}
-                  {exp.endDate ? formatDate(exp.endDate,"MM/yyyy"):""}
+                  {formatDate(exp.startDate, "MM/yyyy")}-{" "}
+                  {exp.endDate ? formatDate(exp.endDate, "MM/yyyy") : ""}
                 </span>
               )}
-              </div>
-              <p className="text-xs font-semibold">{exp.company}</p>
-              <div className="whitespace-pre-line text-xs">{exp.description}</div>
+            </div>
+            <p className="text-xs font-semibold">{exp.company}</p>
+            <div className="whitespace-pre-line text-xs">{exp.description}</div>
           </div>
         ))}
-      
-    </div>
-  </>
-  
-  ) 
- 
+      </div>
+    </>
+  );
 }
 
-function EDucationSection({resumeData}:ResumeSectionProp){
-  const {educations} = resumeData 
+function EDucationSection({ resumeData }: ResumeSectionProp) {
+  const { educations } = resumeData;
 
   const EducationNotEpty = educations?.filter(
-    (edu)=>Object.values(edu).filter(boolean).length > 0
-  )
-  if(!EducationNotEpty) return null;
+    (edu) => Object.values(edu).filter(boolean).length > 0,
+  );
+  if (!EducationNotEpty) return null;
 
-  return(
+  return (
     <>
-     <hr className="border-2 "/>
-    <div className="space-y-2">
-        <p className="text-lg font-semibold">
-            Education
-        </p>
-        {EducationNotEpty.map((edu,index)=>(
+      <hr className="border-2 " />
+      <div className="space-y-2">
+        <p className="text-lg font-semibold">Education</p>
+        {EducationNotEpty.map((edu, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
-              <div className="flex items-center justify-between text-sm font-semibold">
+            <div className="flex items-center justify-between text-sm font-semibold">
               <span>{edu.degree}</span>
               {edu.startDate && (
                 <span>
                   {edu.startDate &&
-                  `${formatDate(edu.startDate,"MM/yyyy")} ${edu.endDate ? `-${formatDate(edu.endDate,"MM/yyyy")}`:""}`}
+                    `${formatDate(edu.startDate, "MM/yyyy")} ${edu.endDate ? `-${formatDate(edu.endDate, "MM/yyyy")}` : ""}`}
                 </span>
               )}
-              </div>
-              <p className="text-xs font-semibold">{edu.school}</p>
-              
+            </div>
+            <p className="text-xs font-semibold">{edu.school}</p>
           </div>
         ))}
-      
-    </div>
-    
+      </div>
     </>
-  )
+  );
+}
 
+function SkillSection({ resumeData }: ResumeSectionProp) {
+  const { skills } = resumeData;
 
+  if (!skills?.length) return null;
+
+  return (
+    <>
+      <pre>{JSON.stringify(skills, null, 2)}</pre>
+      <hr className="border-2" />
+
+      <div className="break-inside-avoid space-y-3">
+        <h2 className="text-lg font-semibold">Skills</h2>
+
+        <div className="flex flex-wrap gap-2">
+          {skills.map((skill, index) => (
+            <div
+              key={`${skill}-${index}`}
+              className="rounded-md bg-black px-2 py-1 text-sm text-white"
+            >
+              {skill}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
