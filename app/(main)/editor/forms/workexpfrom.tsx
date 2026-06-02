@@ -13,9 +13,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, workExperienceType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { GripHorizontal, PlusIcon } from "lucide-react";
+import { GripHorizontal, Keyboard, PlusIcon } from "lucide-react";
 import { useEffect } from "react";
-import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
+import { useFieldArray, useForm, UseFormReturn } from 
+"react-hook-form";
+import {KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
+import {sortableKeyboardCoordinates} from "@dnd-kit/sortable"
 
 export default function WorkExpForm({
   resumeData,
@@ -40,10 +43,17 @@ export default function WorkExpForm({
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove ,move} = useFieldArray({
     control: form.control,
     name: "workexp",
   });
+
+  const sensor = useSensors(
+      useSensor(PointerSensor),
+      useSensor(KeyboardSensor,{
+        coordinateGetter:sortableKeyboardCoordinates
+      })
+  )
 
   return (
     <div className="mx-auto space-y-6 max-w-xl">
