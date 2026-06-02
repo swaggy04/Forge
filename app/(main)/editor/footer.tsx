@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { steps } from "./steps";
+import { FileUserIcon, PenLineIcon } from "lucide-react";
 
 
 
 interface FooterProps {
     currentStep: string;
     setCurrentStep: (steps: string) => void;
+    showSmPreview:boolean;
+    setShowSmPreview:(show:boolean)=> void
   }
 
-export default function Footer({currentStep,setCurrentStep}:FooterProps) {
+export default function Footer({currentStep,setCurrentStep,showSmPreview,setShowSmPreview}:FooterProps) {
 
   const previousStep = steps.find(
     (_, index)=>steps[index+1]?.key  === currentStep
@@ -33,7 +36,11 @@ export default function Footer({currentStep,setCurrentStep}:FooterProps) {
             onClick={nextStep ? () => setCurrentStep (nextStep) : undefined}
             disabled={!nextStep}
             >Next</Button>
+
           </div>
+          <Button>
+            {showSmPreview ? <PenLineIcon/> : <FileUserIcon/>}
+          </Button>
         </div>
         <Button variant="secondary" asChild>
           <Link href="/resume">Back to Home</Link>
