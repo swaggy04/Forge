@@ -17,8 +17,8 @@ import { GripHorizontal, Keyboard, PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from 
 "react-hook-form";
-import {KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
-import {sortableKeyboardCoordinates} from "@dnd-kit/sortable"
+import {DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
+import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable"
 
 export default function WorkExpForm({
   resumeData,
@@ -54,6 +54,18 @@ export default function WorkExpForm({
         coordinateGetter:sortableKeyboardCoordinates
       })
   )
+
+  function handleDragEnd (event:DragEndEvent){
+    const {active,over} = event
+    if(over && active.id !== over.id){
+      const oldIndex = fields.findIndex(fields => fields.id === active.id)
+       const newIndex = fields.findIndex(fields => fields.id === over.id)
+       move(oldIndex,newIndex)
+       return arrayMove(fields,newIndex,oldIndex)
+
+
+    }
+  } 
 
   return (
     <div className="mx-auto space-y-6 max-w-xl">
