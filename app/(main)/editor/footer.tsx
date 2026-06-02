@@ -41,7 +41,7 @@ export default function Footer({currentStep,setCurrentStep,showSmPreview,setShow
           <Button
           variant="outline"
           size="icon"
-          onClick={()=>(!setShowSmPreview)}
+          onClick={()=>setShowSmPreview(!showSmPreview)}
           className="md:hidden"
           title={
             showSmPreview ? "show input form":"show resume preview"
