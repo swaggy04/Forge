@@ -38,7 +38,15 @@ export default function Footer({currentStep,setCurrentStep,showSmPreview,setShow
             >Next</Button>
 
           </div>
-          <Button>
+          <Button
+          variant="outline"
+          size="icon"
+          onClick={()=>(!setShowSmPreview)}
+          className="md:hidden"
+          title={
+            showSmPreview ? "show input form":"show resume preview"
+          }
+          >
             {showSmPreview ? <PenLineIcon/> : <FileUserIcon/>}
           </Button>
         </div>
