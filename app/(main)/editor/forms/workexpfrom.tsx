@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from 
 "react-hook-form";
 import {closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
-import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable"
+import {arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy} from "@dnd-kit/sortable"
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers"
 
 export default function WorkExpForm({
@@ -84,8 +84,14 @@ export default function WorkExpForm({
           onDragEnd={handleDragEnd}
           modifiers={[restrictToVerticalAxis]}
           >
+
+          <SortableContext
+          items={fields}
+          strategy={verticalListSortingStrategy}
+          >
           {fields.map((field, index) => (
             <WorkeExperienceItem
+            id={field.id}
               key={field.id}
               index={index}
               form={form}
@@ -93,6 +99,7 @@ export default function WorkExpForm({
             />
 
           ))}
+          </SortableContext>
           </DndContext>
           <div className="flex justify-center p-4 ">
             <Button
@@ -118,17 +125,34 @@ export default function WorkExpForm({
 }
 
 interface workExperienceProps {
+  id:string;
   form: UseFormReturn<workExperienceType>;
   index: number;
   remove: (index: number) => void;
 }
 
-function WorkeExperienceItem({ form, index, remove }: workExperienceProps) {
+function WorkeExperienceItem({id, form, index, remove }: workExperienceProps) {
+
+const {
+  attributes,
+  listeners,
+  setNodeRef,
+  transform,
+  transition
+
+} = useSortable({id})
+
   return (
-    <div className="space-y-3 rounded-md border  bg-background p-3">
+    <div className="space-y-3 rounded-md border  bg-background p-3"
+    ref={setNodeRef}
+    >
       <div className="flex justify-between gap-2">
         <span>Work Experience {index + 1}</span>
-        <GripHorizontal className="cursor-grab text-muted-foreground size-5" />
+        <GripHorizontal className="cursor-grab text-muted-foreground size-5"
+        {...attributes}
+          {...listeners}
+        
+        />
       </div>
       <FormField
         control={form.control}
