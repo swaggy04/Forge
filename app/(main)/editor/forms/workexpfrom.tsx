@@ -17,8 +17,9 @@ import { GripHorizontal, Keyboard, PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from 
 "react-hook-form";
-import {DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
+import {closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable"
+import {restrictToVerticalAxis} from "@dnd-kit/modifiers"
 
 export default function WorkExpForm({
   resumeData,
@@ -58,8 +59,8 @@ export default function WorkExpForm({
   function handleDragEnd (event:DragEndEvent){
     const {active,over} = event
     if(over && active.id !== over.id){
-      const oldIndex = fields.findIndex(fields => fields.id === active.id)
-       const newIndex = fields.findIndex(fields => fields.id === over.id)
+      const oldIndex = fields.findIndex(field => field.id === active.id)
+       const newIndex = fields.findIndex(field => field.id === over.id)
        move(oldIndex,newIndex)
        return arrayMove(fields,newIndex,oldIndex)
 
@@ -77,6 +78,12 @@ export default function WorkExpForm({
       </div>
       <Form {...form}>
         <form className="space-y-6">
+          <DndContext
+          sensors={sensor}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToVerticalAxis]}
+          >
           {fields.map((field, index) => (
             <WorkeExperienceItem
               key={field.id}
@@ -84,7 +91,9 @@ export default function WorkExpForm({
               form={form}
               remove={remove}
             />
+
           ))}
+          </DndContext>
           <div className="flex justify-center p-4 ">
             <Button
               size="lg"
