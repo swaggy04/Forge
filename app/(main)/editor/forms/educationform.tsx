@@ -11,7 +11,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { EditorFormProps } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { educationSchema, educationType } from "@/lib/validation";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -64,6 +67,7 @@ export default function EducationForm({
         <div className="space-y-6">
           {fields.map((field, index) => (
             <EducationItems
+            id={field.id}
               key={field.id}
               index={index}
               form={form}
@@ -92,17 +96,36 @@ export default function EducationForm({
   );
 }
 interface EducationProps {
+  id:string
   form: UseFormReturn<educationType>;
   index: number;
   remove: (index: number) => void;
 }
 
-function EducationItems({ form, index, remove }: EducationProps) {
+function EducationItems({ id, form, index, remove }: EducationProps) {
+  
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  
+  } = useSortable({id})
   return (
-    <div className="space-y-3 rounded-md border  bg-background p-3">
+     <div className={cn("space-y-3 rounded-md border  bg-background p-3",isDragging && "shadow-2xl z-50 relative cursor-grab")}
+        ref={setNodeRef}
+        style={{
+          transform:CSS.Transform.toString(transform),
+          transition
+        }}>
       <div className="flex justify-between gap-2">
         <span>Education</span>
-        <GripHorizontal className="cursor-grab text-muted-foreground size-5" />
+        <GripHorizontal className="cursor-grab text-muted-foreground size-5 focus:outline-none"
+        {...attributes}
+          {...listeners}
+         />
       </div>
 
       <FormField
