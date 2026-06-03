@@ -20,7 +20,7 @@ import { useFieldArray, useForm, UseFormReturn } from
 import {closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import {arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy} from "@dnd-kit/sortable"
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers"
-import css, { CSS } from "@dnd-kit/utilities";
+import  { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 
 export default function WorkExpForm({
