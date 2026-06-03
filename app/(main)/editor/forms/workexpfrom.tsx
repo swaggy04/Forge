@@ -21,6 +21,7 @@ import {closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, 
 import {arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy} from "@dnd-kit/sortable"
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers"
 import css, { CSS } from "@dnd-kit/utilities";
+import { cn } from "@/lib/utils";
 
 export default function WorkExpForm({
   resumeData,
@@ -145,7 +146,7 @@ const {
 } = useSortable({id})
 
   return (
-    <div className="space-y-3 rounded-md border  bg-background p-3"
+    <div className={cn("space-y-3 rounded-md border  bg-background p-3",isDragging && "shadow-2xl z-50 relative cursor-grab")}
     ref={setNodeRef}
     style={{
       transform:CSS.Transform.toString(transform),
@@ -154,7 +155,7 @@ const {
     >
       <div className="flex justify-between gap-2">
         <span>Work Experience {index + 1}</span>
-        <GripHorizontal className="cursor-grab text-muted-foreground size-5"
+        <GripHorizontal className="cursor-grab text-muted-foreground size-5 focus:outline-none"
         {...attributes}
           {...listeners}
         
