@@ -20,6 +20,7 @@ import { useFieldArray, useForm, UseFormReturn } from
 import {closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import {arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy} from "@dnd-kit/sortable"
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers"
+import css, { CSS } from "@dnd-kit/utilities";
 
 export default function WorkExpForm({
   resumeData,
@@ -138,13 +139,18 @@ const {
   listeners,
   setNodeRef,
   transform,
-  transition
+  transition,
+  isDragging
 
 } = useSortable({id})
 
   return (
     <div className="space-y-3 rounded-md border  bg-background p-3"
     ref={setNodeRef}
+    style={{
+      transform:CSS.Transform.toString(transform),
+      transition
+    }}
     >
       <div className="flex justify-between gap-2">
         <span>Work Experience {index + 1}</span>
