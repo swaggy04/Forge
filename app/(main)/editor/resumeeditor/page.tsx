@@ -9,21 +9,22 @@ import { ResumeValues } from "@/lib/validation";
 import PreviewSection from "../previewsection";
 import { cn } from "@/lib/utils";
 import useUnloadWarning from "@/hooks/useunloadwarning";
+import useAutoSaveResume from "../useautosave";
 
 export default function ResumeEditor() {
   const searchParams = useSearchParams();
 
 const [resumeData, setResumeData] = useState<ResumeValues>({
-  title: "",
-  description: "",
-  firstName: "",
-  lastName: "",
-  jobTitle: "",
-  city: "",
-  country: "",
-  phone: "",
-  email: "",
-  photo: null,
+  // title: "",
+  // description: "",
+  // firstName: "",
+  // lastName: "",
+  // jobTitle: "",
+  // city: "",
+  // country: "",
+  // phone: "",
+  // email: "",
+  // photo: null,
 });
   const currentStep = searchParams.get("step") || steps[0].key;
 
@@ -34,6 +35,8 @@ const [resumeData, setResumeData] = useState<ResumeValues>({
   }
 
   const [showSmPreview,setShowSmPreview] = useState(false)
+   const {isSaving,hasUnsavedChanges} = useAutoSaveResume(resumeData)
+   useUnloadWarning(hasUnsavedChanges)
   
   const FormComponent = steps.find(
     (step) => step.key === currentStep
