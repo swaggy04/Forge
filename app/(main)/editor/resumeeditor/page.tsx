@@ -35,6 +35,7 @@ const [resumeData, setResumeData] = useState<ResumeValues>({
   }
 
   const [showSmPreview,setShowSmPreview] = useState(false)
+
    const {isSaving,hasUnsavedChanges} = useAutoSaveResume(resumeData)
    useUnloadWarning(hasUnsavedChanges)
   
@@ -84,6 +85,7 @@ const [resumeData, setResumeData] = useState<ResumeValues>({
       <Footer currentStep={currentStep} setCurrentStep={setStep}
       showSmPreview={showSmPreview}
       setShowSmPreview={setShowSmPreview}
+      isSaving={isSaving}
       />
     </div>
   );
