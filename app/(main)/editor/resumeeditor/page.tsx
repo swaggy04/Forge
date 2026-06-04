@@ -38,7 +38,6 @@ const [resumeData, setResumeData] = useState<ResumeValues>({
   const FormComponent = steps.find(
     (step) => step.key === currentStep
   )?.component;
-  useUnloadWarning();
 
   return (
     <div className="w-full min-h-screen flex flex-col">
