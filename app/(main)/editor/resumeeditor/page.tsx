@@ -8,6 +8,7 @@ import { useState } from "react";
 import { ResumeValues } from "@/lib/validation";
 import PreviewSection from "../previewsection";
 import { cn } from "@/lib/utils";
+import useUnloadWarning from "@/hooks/useunloadwarning";
 
 export default function ResumeEditor() {
   const searchParams = useSearchParams();
@@ -37,6 +38,7 @@ const [resumeData, setResumeData] = useState<ResumeValues>({
   const FormComponent = steps.find(
     (step) => step.key === currentStep
   )?.component;
+  useUnloadWarning();
 
   return (
     <div className="w-full min-h-screen flex flex-col">
