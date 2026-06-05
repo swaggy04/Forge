@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { resumeSchema, ResumeValues } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import {del, put} from "@vercel/blob"
+import { url } from "node:inspector";
 import path from "node:path";
 
 export async function saveResume(values:ResumeValues){
@@ -31,5 +32,10 @@ export async function saveResume(values:ResumeValues){
             access:"public"
         })
         newPhotoUrl = blob.url
+    }else if (photo===null){
+         if(exixtingResume?.photoUrl){
+            await del(exixtingResume.photoUrl)
+        }
+        newPhotoUrl = null
     }
 }
