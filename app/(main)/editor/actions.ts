@@ -65,6 +65,28 @@ export async function saveResume(values:ResumeValues){
         })
     }
     else{
+        return prisma.resume.create({
+            data: {
+                ...resumevalues,
+                userId,
+                photoUrl:newPhotoUrl,
+                workExperiences:{
+                    create:workexp?.map( exp =>({
+                        ...exp,
+                        startDate:exp.startDate ? new Date(exp.startDate) : undefined,
+                        endDate:exp.endDate ? new Date(exp.endDate) : undefined
+                    }))
+                },
+                education:{    
+                    create:educations?.map( edu =>({
+                        ...edu,
+                        startDate:edu.startDate ? new Date(edu.startDate) : undefined,
+                        endDate:edu.endDate ? new Date(edu.endDate) : undefined
+                    }))
+                },
+             
+            }
+        })
 
     }
 }
