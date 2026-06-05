@@ -38,4 +38,33 @@ export async function saveResume(values:ResumeValues){
         }
         newPhotoUrl = null
     }
+    if(id){
+        return prisma.resume.update({
+            where:{id},
+            data: {
+                ...resumevalues,
+                photoUrl:newPhotoUrl,
+                workExperiences:{
+                    deleteMany:{},
+                    create:workexp?.map( exp =>({
+                        ...exp,
+                        startDate:exp.startDate ? new Date(exp.startDate) : undefined,
+                        endDate:exp.endDate ? new Date(exp.endDate) : undefined
+                    }))
+                },
+                education:{
+                    deleteMany:{},
+                    create:educations?.map( edu =>({
+                        ...edu,
+                        startDate:edu.startDate ? new Date(edu.startDate) : undefined,
+                        endDate:edu.endDate ? new Date(edu.endDate) : undefined
+                    }))
+                },
+                updatedAt:new Date(),
+            }
+        })
+    }
+    else{
+
+    }
 }
