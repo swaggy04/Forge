@@ -4,6 +4,7 @@ import { ResumeValues } from "@/lib/validation";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { resume } from "react-dom/server";
+import { saveResume } from "./actions";
 
 export default function useAutoSaveResume(resumeData: ResumeValues) {
 
@@ -26,6 +27,23 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
 
   useEffect(() => {
     async function save() {
+      try {
+        setIsSaving(true)
+        setIsError(false)
+        const newData = structuredClone(debouncedResumeData)
+        const updatedResume = await saveResume({
+          ...newData,
+          ...(lastSavedData.photo?.toString()=== newData.photo?.toString() && {
+            photo:undefined,
+          }),
+          id: resumeId
+        })
+        setResumeId(updatedResume.id)
+        setLastSavedData(newData)
+      } catch (error) {
+        
+      }
+
       
     }
 
