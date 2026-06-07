@@ -77,7 +77,7 @@ export async function saveResume(values:ResumeValues){
                         endDate:exp.endDate ? new Date(exp.endDate) : undefined
                     }))
                 },
-                education:{    
+                educations:{    
                     create:educations?.map( edu =>({
                         ...edu,
                         startDate:edu.startDate ? new Date(edu.startDate) : undefined,

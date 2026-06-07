@@ -72,6 +72,8 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
       </div>
     ),
   });
+}finally{
+  setIsSaving(false)
 }
 
       
