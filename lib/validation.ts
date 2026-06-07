@@ -11,16 +11,17 @@ export type generalInfoType = z.infer<typeof generalInfoSchema>;
 
 export const personalInfoSchema = z.object({
   photo: z
-    .instanceof(File)
-    .optional()
-    .refine(
-      (file) => !file || file.type.startsWith("image/"),
-      "must be an image file",
-    )
-    .refine(
-      (file) => !file || file.size <= 1024 * 1024 * 4,
-      "file must be less than 4mb",
-    ),
+  .instanceof(File)
+  .nullable()
+  .optional()
+  .refine(
+    (file) => !file || file.type.startsWith("image/"),
+    "must be an image file",
+  )
+  .refine(
+    (file) => !file || file.size <= 1024 * 1024 * 4,
+    "file must be less than 4mb",
+  ),
   firstName: optionalString,
   lastName: optionalString,
   jobTitle: optionalString,
