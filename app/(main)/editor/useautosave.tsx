@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { resume } from "react-dom/server";
 import { saveResume } from "./actions";
+import { Button } from "@/components/ui/button";
 
 export default function useAutoSaveResume(resumeData: ResumeValues) {
 
@@ -49,8 +50,28 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
           )
         }
       } catch (error) {
-        
-      }
+  setIsError(true);
+
+  console.error(error);
+
+  const { dismiss } = toast({
+    variant: "destructive",
+    description: (
+      <div className="space-y-3">
+        <p>Could not save changes.</p>
+
+        <Button
+          onClick={() => {
+            dismiss();
+            save();
+          }}
+        >
+          Retry
+        </Button>
+      </div>
+    ),
+  });
+}
 
       
     }
@@ -58,10 +79,10 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
     const hasUnsavedChanges =
       JSON.stringify(debouncedResumeData) !== JSON.stringify(lastSavedData);
 
-    if (hasUnsavedChanges && debouncedResumeData && !isSaving) {
+    if (hasUnsavedChanges && debouncedResumeData && !isSaving && !isError) {
       save();
     }
-  }, [debouncedResumeData, isSaving, lastSavedData]);
+  }, [debouncedResumeData, isSaving, lastSavedData,isError,resumeId,searchParams]);
 
   return {
     isSaving,
