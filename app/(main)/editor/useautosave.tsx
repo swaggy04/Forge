@@ -61,6 +61,7 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
         <p>Could not save changes.</p>
 
         <Button
+        variant="secondary"
           onClick={() => {
             dismiss();
             save();
