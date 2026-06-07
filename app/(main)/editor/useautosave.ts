@@ -40,6 +40,14 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
         })
         setResumeId(updatedResume.id)
         setLastSavedData(newData)
+
+        if(searchParams.get("resumeId")!== updatedResume.id){
+          const newSearchParams = new URLSearchParams(searchParams)
+          newSearchParams.set("resumeID",updatedResume.id)
+          window.history.replaceState(
+            null,"",`?${newSearchParams.toString()}`
+          )
+        }
       } catch (error) {
         
       }
