@@ -1,6 +1,6 @@
 
 import { auth } from "@clerk/nextjs/server";
-import ResumeEditor from "./resumeeditor/page";
+import ResumeEditor from "./resumeeditor/ResumeEditor";
 import { prisma } from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
 interface PageProps{
