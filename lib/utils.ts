@@ -1,25 +1,23 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { ResumeServerData } from "./types";
 import { ResumeValues } from "./validation";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-export function  fileReplacer(key:unknown,value:unknown){
-  return value instanceof File ?
-  {
-    name:value.name,
-    size:value.size,
-    type:value.type,
-    lastModified:value.lastModified
-  }: value
-
+export function fileReplacer(key: unknown, value: unknown) {
+  return value instanceof File
+    ? {
+        name: value.name,
+        size: value.size,
+        type: value.type,
+        lastModified: value.lastModified,
+      }
+    : value;
 }
-export function mapToResumeValues(
-  data: ResumeServerData,
-): ResumeValues {
+export function mapToResumeValues(data: ResumeServerData): ResumeValues {
   return {
     id: data.id,
 

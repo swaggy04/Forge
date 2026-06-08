@@ -7,25 +7,21 @@ import Footer from "../footer";
 import { useState } from "react";
 import { ResumeValues } from "@/lib/validation";
 import PreviewSection from "../previewsection";
-import { cn } from "@/lib/utils";
+import { cn, mapToResumeValues } from "@/lib/utils";
 import useUnloadWarning from "@/hooks/useunloadwarning";
 import useAutoSaveResume from "../useautosave";
+import { ResumeServerData } from "@/lib/types";
 
-export default function ResumeEditor() {
+interface ResumeEditorProps{
+  resumeToEdit: ResumeServerData | null
+}
+
+export default function ResumeEditor({resumeToEdit}:ResumeEditorProps) {
   const searchParams = useSearchParams();
 
-const [resumeData, setResumeData] = useState<ResumeValues>({
-  // title: "",
-  // description: "",
-  // firstName: "",
-  // lastName: "",
-  // jobTitle: "",
-  // city: "",
-  // country: "",
-  // phone: "",
-  // email: "",
-  // photo: null,
-});
+const [resumeData, setResumeData] = useState<ResumeValues>(
+  resumeToEdit ? mapToResumeValues(resumeToEdit) :{}
+)
   const currentStep = searchParams.get("step") || steps[0].key;
 
   function setStep(key: string) {
