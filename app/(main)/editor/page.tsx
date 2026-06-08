@@ -17,9 +17,13 @@ export default async function  Page({searchParams}:PageProps){
     }
     const resumeToEdit = resumeId
     ? await prisma.resume.findUnique({
-        where:{id:resumeId,userId}
+        where:{id:resumeId,userId},
+        include:{
+            workExperiences:true,
+            educations:true
+        }
     })
     :null
 
-    return <ResumeEditor/>
+    return <ResumeEditor resumeToEdit={resumeToEdit} />
 }
