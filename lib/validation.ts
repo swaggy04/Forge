@@ -11,17 +11,17 @@ export type generalInfoType = z.infer<typeof generalInfoSchema>;
 
 export const personalInfoSchema = z.object({
   photo: z
-  .instanceof(File)
-  .nullable()
-  .optional()
-  .refine(
-    (file) => !file || file.type.startsWith("image/"),
-    "must be an image file",
-  )
-  .refine(
-    (file) => !file || file.size <= 1024 * 1024 * 4,
-    "file must be less than 4mb",
-  ),
+    .instanceof(File)
+    .nullable()
+    .optional()
+    .refine(
+      (file) => !file || file.type.startsWith("image/"),
+      "must be an image file",
+    )
+    .refine(
+      (file) => !file || file.size <= 1024 * 1024 * 4,
+      "file must be less than 4mb",
+    ),
   firstName: optionalString,
   lastName: optionalString,
   jobTitle: optionalString,
@@ -50,31 +50,31 @@ export const workExperienceSchema = z.object({
 export type workExperienceType = z.infer<typeof workExperienceSchema>;
 
 export const educationSchema = z.object({
-  educations: z.array(
-    z.object({
-      degree: optionalString,
-      school: optionalString,
-      startDate: optionalString,
-      endDate: optionalString,
-    }),
-  ).optional(),
+  educations: z
+    .array(
+      z.object({
+        degree: optionalString,
+        school: optionalString,
+        startDate: optionalString,
+        endDate: optionalString,
+      }),
+    )
+    .optional(),
 });
 
 export type educationType = z.infer<typeof educationSchema>;
 
 export const skillSchema = z.object({
-  skills: z.array(z.string().trim()).optional()
-})
-
-
-export type skillType = z.infer<typeof skillSchema>
-
-
-export const summarySchema = z.object({
-  summary:optionalString
+  skills: z.array(z.string().trim()).optional(),
 });
 
-export type summaryType = z.infer<typeof summarySchema>
+export type skillType = z.infer<typeof skillSchema>;
+
+export const summarySchema = z.object({
+  summary: optionalString,
+});
+
+export type summaryType = z.infer<typeof summarySchema>;
 
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,
@@ -82,10 +82,19 @@ export const resumeSchema = z.object({
   ...workExperienceSchema.shape,
   ...educationSchema.shape,
   ...skillSchema.shape,
-  ...summarySchema.shape
+  ...summarySchema.shape,
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
   id?: string;
   photo?: string | File | null;
 };
+
+export const generateSummarySchema = z.object({
+  jobTitle: optionalString,
+  ...workExperienceSchema.shape,
+  ...educationSchema.shape,
+  ...skillSchema.shape,
+});
+
+export type GenerateSummaryValues = z.infer<typeof generateSummarySchema>;
