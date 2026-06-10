@@ -49,6 +49,10 @@ export const workExperienceSchema = z.object({
 
 export type workExperienceType = z.infer<typeof workExperienceSchema>;
 
+export type workExperience = NonNullable<z.infer<typeof workExperienceSchema>["workexp"]>
+
+
+
 export const educationSchema = z.object({
   educations: z
     .array(
@@ -98,3 +102,13 @@ export const generateSummarySchema = z.object({
 });
 
 export type GenerateSummaryValues = z.infer<typeof generateSummarySchema>;
+
+export const generateWorkExpSchema = z.object({
+  description:z
+  .string()
+  .trim()
+  .min(1,"required")
+  .min(20,"Must be atleast 20 character")
+})
+
+export type GenerateWorkExpValues = z.infer<typeof generateWorkExpSchema>
