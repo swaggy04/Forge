@@ -175,7 +175,7 @@ function SkillSection({ resumeData }: ResumeSectionProp) {
 
   return (
     <>
-      <pre>{JSON.stringify(skills, null, 2)}</pre>
+      
       <hr className="border-2" />
 
       <div className="break-inside-avoid space-y-3">

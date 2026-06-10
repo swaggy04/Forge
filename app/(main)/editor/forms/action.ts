@@ -41,53 +41,64 @@ ${jobTitle || "N/A"}
 
 Work Experience:
 ${
-  workexp
-    ?.map(
-      (exp) => `
+  workexp?.map(
+    (exp) => `
 Position: ${exp.position || "N/A"}
 Company: ${exp.company || "N/A"}
 Duration: ${exp.startDate || "N/A"} to ${exp.endDate || "Present"}
 Description: ${exp.description || "N/A"}
 `,
-    )
-    .join("\n\n") || "N/A"
+  ).join("\n\n") || "N/A"
 }
 
 Education:
 ${
-  educations
-    ?.map(
-      (edu) => `
+  educations?.map(
+    (edu) => `
 Degree: ${edu.degree || "N/A"}
 School: ${edu.school || "N/A"}
 Duration: ${edu.startDate || "N/A"} to ${edu.endDate || "N/A"}
 `,
-    )
-    .join("\n\n") || "N/A"
+  ).join("\n\n") || "N/A"
 }
 
 Skills:
 ${skills?.join(", ") || "N/A"}
 `;
 
-  try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: `${systemMessage}\n\n${userMessage}`,
-    });
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: `${systemMessage}\n\n${userMessage}`,
+      });
 
-    const summary = response.text;
+      const summary = response.text;
 
-    if (!summary?.trim()) {
-      throw new Error("Gemini returned an empty response.");
+      if (!summary?.trim()) {
+        throw new Error("Gemini returned an empty response.");
+      }
+
+      return summary;
+    } catch (error) {
+      console.error(
+        `Gemini attempt ${attempt} failed:`,
+        error,
+      );
+
+      if (attempt === 3) {
+        throw new Error(
+          "AI service is currently busy. Please try again in a few moments.",
+        );
+      }
+
+      await new Promise((resolve) =>
+        setTimeout(resolve, 2000),
+      );
     }
-
-    return summary;
-  } catch (error) {
-    console.error("Summary generation failed:", error);
-
-    throw new Error(
-      "Failed to generate resume summary. Please try again.",
-    );
   }
+
+  throw new Error(
+    "Failed to generate resume summary.",
+  );
 }
