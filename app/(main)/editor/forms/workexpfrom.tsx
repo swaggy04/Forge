@@ -22,6 +22,7 @@ import {arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, ve
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers"
 import  { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
+import GenerateWorkExpButton from "./generateworkexpbttn";
 
 export default function WorkExpForm({
   resumeData,
@@ -160,6 +161,16 @@ const {
           {...listeners}
         
         />
+      </div>
+      <div className="flex justify-center">
+       <GenerateWorkExpButton
+  onGeneratedDescription={(description) =>
+    form.setValue(
+      `workexp.${index}.description`,
+      description
+    )
+  }
+/>
       </div>
       <FormField
         control={form.control}
