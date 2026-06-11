@@ -1,18 +1,22 @@
-// import LoadingButton from "@/components/loadingbutton";
-import { useToast } from "@/hooks/usetoast";
-// import { ResumeValues } from "@/lib/validation";
-import { WandSparklesIcon } from "lucide-react";
+"use client";
+
 import { useState } from "react";
-// import {  generateWorkExp } from "./action";
+import { WandSparklesIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Button } from "@/components/ui/button";
+import LoadingButton from "@/components/loadingbutton";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/usetoast";
+
 import {
   generateWorkExpSchema,
   GenerateWorkExpValues,
-  workExperience,
 } from "@/lib/validation";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { generateWorkExp } from "./action";
+
 import {
   Dialog,
   DialogContent,
@@ -20,6 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
 import {
   Form,
   FormControl,
@@ -28,20 +33,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import Loading from "@/app/loading";
-import LoadingButton from "@/components/loadingbutton";
-import { WorkExperience } from "@prisma/client";
 
 interface WorkExpGenerationButtonProps {
-  onGeneratedDescription: (workExperience: WorkExperience) => void;
+  onGeneratedDescription: (description: string) => void;
 }
 
-export default function GenerateSummaryButton({
+export default function GenerateWorkExpButton({
   onGeneratedDescription,
 }: WorkExpGenerationButtonProps) {
-  const [showInputdialog, setShowInputDialog] = useState(false);
+  const [showInputDialog, setShowInputDialog] = useState(false);
 
   return (
     <>
@@ -50,16 +50,17 @@ export default function GenerateSummaryButton({
         type="button"
         onClick={() => setShowInputDialog(true)}
       >
-        <WandSparklesIcon size={4} />
-        Smart fill (AI)
+        <WandSparklesIcon className="size-4" />
+        Smart Fill (AI)
       </Button>
+
       <InputDialog
-      open={showInputdialog}
-      onOpenChange={setShowInputDialog}
-      onGeneratedDescription={(workExperince)=>{
-        onGeneratedDescription(workExperince)
-        setShowInputDialog(false)
-      }}
+        open={showInputDialog}
+        onOpenChange={setShowInputDialog}
+        onGeneratedDescription={(description) => {
+          onGeneratedDescription(description);
+          setShowInputDialog(false);
+        }}
       />
     </>
   );
@@ -68,7 +69,7 @@ export default function GenerateSummaryButton({
 interface InputDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onGeneratedDescription: (workExperience: WorkExperience) => void;
+  onGeneratedDescription: (description: string) => void;
 }
 
 function InputDialog({
@@ -87,45 +88,67 @@ function InputDialog({
 
   async function onSubmit(input: GenerateWorkExpValues) {
     try {
-      const response = await generateWorkExp(input);
-      onGeneratedDescription(response);
+      const description = await generateWorkExp(input);
+
+      onGeneratedDescription(description);
+
+      form.reset();
+
+      onOpenChange(false);
     } catch (error) {
       console.error(error);
+
       toast({
         variant: "destructive",
-        description: "something went wrong please try again later ",
+        description:
+          "Something went wrong. Please try again later.",
       });
     }
   }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Generate Work Experience</DialogTitle>
+          <DialogTitle>
+            Generate Work Experience
+          </DialogTitle>
+
           <DialogDescription>
-            Describe the work experience and ai will improve it for you
+            Describe your work experience and AI will
+            improve it for you.
           </DialogDescription>
         </DialogHeader>
+
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-3"
+          >
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
+
                   <FormControl>
                     <Textarea
                       {...field}
-                      placeholder="eg- i worked as software engineer in xyz company from dt to dt"
                       autoFocus
+                      placeholder="e.g. Worked as a software engineer, built React applications, fixed bugs, and collaborated with the backend team."
                     />
                   </FormControl>
-                  <FormMessage />{" "}
+
+                  <FormMessage />
                 </FormItem>
               )}
             />
-            <LoadingButton type="submit" loading={form.formState.isSubmitting}>
+
+            <LoadingButton
+              type="submit"
+              loading={form.formState.isSubmitting}
+            >
               Generate
             </LoadingButton>
           </form>
