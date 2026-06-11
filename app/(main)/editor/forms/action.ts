@@ -142,7 +142,7 @@ ${description}
 
       if (attempt === 3) {
         throw new Error(
-          "AI service is currently busy. Please try again in a few moments.",
+          "AI service is currently busy. Please try again later.",
         );
       }
 
