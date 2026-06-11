@@ -32,9 +32,10 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import Loading from "@/app/loading";
 import LoadingButton from "@/components/loadingbutton";
+import { WorkExperience } from "@prisma/client";
 
 interface WorkExpGenerationButtonProps {
-  onGeneratedDescription: (description: string) => void;
+  onGeneratedDescription: (workExperience: WorkExperience) => void;
 }
 
 export default function GenerateSummaryButton({
@@ -52,6 +53,14 @@ export default function GenerateSummaryButton({
         <WandSparklesIcon size={4} />
         Smart fill (AI)
       </Button>
+      <InputDialog
+      open={showInputdialog}
+      onOpenChange={setShowInputDialog}
+      onGeneratedDescription={(workExperince)=>{
+        onGeneratedDescription(workExperince)
+        setShowInputDialog(false)
+      }}
+      />
     </>
   );
 }
@@ -59,7 +68,7 @@ export default function GenerateSummaryButton({
 interface InputDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onGeneratedDescription: (description: string) => void;
+  onGeneratedDescription: (workExperience: WorkExperience) => void;
 }
 
 function InputDialog({

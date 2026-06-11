@@ -104,11 +104,12 @@ export const generateSummarySchema = z.object({
 export type GenerateSummaryValues = z.infer<typeof generateSummarySchema>;
 
 export const generateWorkExpSchema = z.object({
-  description:z
-  .string()
-  .trim()
-  .min(1,"required")
-  .min(20,"Must be atleast 20 character")
-})
+  description: z
+    .string()
+    .trim()
+    .min(20, "Please provide at least 20 characters")
+    .max(2000, "Description is too long"),
+});
 
-export type GenerateWorkExpValues = z.infer<typeof generateWorkExpSchema>
+export type GenerateWorkExpValues =
+  z.infer<typeof generateWorkExpSchema>;
