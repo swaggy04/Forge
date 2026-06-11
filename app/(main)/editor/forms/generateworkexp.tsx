@@ -30,6 +30,8 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import Loading from "@/app/loading";
+import LoadingButton from "@/components/loadingbutton";
 
 interface WorkExpGenerationButtonProps {
   onGeneratedDescription: (description: string) => void;
@@ -114,6 +116,9 @@ function InputDialog({
                 </FormItem>
               )}
             />
+            <LoadingButton type="submit" loading={form.formState.isSubmitting}>
+              Generate
+            </LoadingButton>
           </form>
         </Form>
       </DialogContent>
