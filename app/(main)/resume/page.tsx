@@ -1,10 +1,18 @@
 import { Button } from "@/components/ui/button";
+import { auth } from "@clerk/nextjs";
 
 import { FilePlus } from "lucide-react";
 
 import Link from "next/link";
 
-export default function page() {
+export default async function page() {
+
+
+  const {userId} = await auth
+
+  
+
+
   return (
     <main className="mx-auto w-full max-w-7xl space-y-6 px-3 py-4">
       <Button asChild className="mx-auto w-fit flex gap-2 bg-slate-950">
