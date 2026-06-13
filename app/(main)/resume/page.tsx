@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prisma";
+import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs";
 
 import { FilePlus } from "lucide-react";
@@ -9,6 +11,19 @@ export default async function page() {
 
 
   const {userId} = await auth
+  if(!userId){
+    return null
+  }
+
+  const resume = await prisma.resume.findMany({
+    where:{
+      userId
+    },
+    orderBy:{
+      updatedAt:"desc"
+    },
+    include:resumeDataInclude
+  })
 
   
 
