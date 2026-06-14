@@ -36,6 +36,10 @@ export default async function page() {
           <FilePlus className="size-5" />
           Create Resume
         </Link>
+        <div className="space-y-1">
+          <h1 className="font-bold text-3xl">Your resume</h1>
+          <p>Total:{totalCount}</p>
+        </div>
       </Button>
     </main>
   );
