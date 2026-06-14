@@ -40,6 +40,10 @@ export default async function page() {
           <h1 className="font-bold text-3xl">Your resume</h1>
           <p>Total:{totalCount}</p>
         </div>
+        <div className="flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-3">
+          
+
+        </div>
       </Button>
     </main>
   );
