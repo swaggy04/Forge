@@ -42,7 +42,9 @@ export default async function page() {
         </div>
         <div className="flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-3">
           
+            {resume.map((resume) =>(
 
+            ))}
         </div>
       </Button>
     </main>
