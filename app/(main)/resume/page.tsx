@@ -7,6 +7,7 @@ import { FilePlus } from "lucide-react";
 
 import Link from "next/link";
 import { promise } from "zod";
+import ResumeItems from "./resumeitems";
 
 export default async function page() {
   const { userId } = await auth;
@@ -43,7 +44,10 @@ export default async function page() {
         <div className="flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-3">
           
             {resume.map((resume) =>(
-              <resumeItems/>
+              <ResumeItems
+              key={resume.id}
+              resume={resume}
+              />
             ))}
         </div>
       </Button>
