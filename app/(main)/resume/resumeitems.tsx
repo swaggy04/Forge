@@ -9,7 +9,9 @@ interface ResumeItemsProps{
 export default function ResumeItems({resume}:ResumeItemsProps){
     const updatedResume = resume.updatedAt!== resume.createdAt
 
-    return <div>
-        resume item
+    return <div className="group border rounded-lg border-transparent hover:border-border transition-colors bg-secondary">
+        <div className="space-y-3">
+            
+        </div>
     </div>
 }
