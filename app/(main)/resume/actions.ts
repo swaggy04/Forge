@@ -2,6 +2,8 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@clerk/nextjs/server"
+import { del } from "@vercel/blob"
+import { revalidatePath } from "next/cache"
 
 export  async function deleteResume(id:string){
     const {userId} = await auth()
@@ -15,4 +17,16 @@ export  async function deleteResume(id:string){
             userId
         }
     })
+    if(!resume){
+        throw new Error ("user is not authenticated")
+    }
+    if(resume.photoUrl){
+        await del(resume.photoUrl)
+    }
+    await prisma.resume.delete({
+        where:{
+            id
+        }
+    })
+    revalidatePath("/resumes")
 }
