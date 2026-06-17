@@ -1,10 +1,14 @@
 "use client"
 
 import PreviewPage from "@/components/previewpage"
+import { Button } from "@/components/ui/button"
+import { DropdownMenuTrigger,DropdownMenu } from "@/components/ui/dropdown-menu"
 import { ResumeServerData } from "@/lib/types"
 import { mapToResumeValues } from "@/lib/utils"
 import { formatDate } from "date-fns"
+import { MoreVerticalIcon } from "lucide-react"
 import Link from "next/link"
+// import { DropdownMenu } from "radix-ui"
 import { useState } from "react"
 
 interface ResumeItemsProps{
@@ -51,6 +55,15 @@ interface MoreMenuProps{
 function MoreMenu({resumeId}:MoreMenuProps){
     const [showDeleteConfirmation,setShowDeleteConfirmation] = useState(false)
     return <>
-        
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                variant="ghost"
+                size="icon"
+                >
+                    <MoreVerticalIcon className="size-4"/>
+                </Button>
+            </DropdownMenuTrigger>
+        </DropdownMenu>
     </>
 }
