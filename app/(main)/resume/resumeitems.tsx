@@ -5,6 +5,7 @@ import { ResumeServerData } from "@/lib/types"
 import { mapToResumeValues } from "@/lib/utils"
 import { formatDate } from "date-fns"
 import Link from "next/link"
+import { useState } from "react"
 
 interface ResumeItemsProps{
     resume:ResumeServerData
@@ -42,4 +43,14 @@ export default function ResumeItems({resume}:ResumeItemsProps){
             </Link>
         </div>
     </div>
+}
+
+interface MoreMenuProps{
+    resumeId:string
+}
+function MoreMenu({resumeId}:MoreMenuProps){
+    const [showDeleteConfirmation,setShowDeleteConfirmation] = useState(false)
+    return <>
+        
+    </>
 }
