@@ -69,8 +69,10 @@ function MoreMenu({resumeId}:MoreMenuProps){
             <DropdownMenuContent>
                 <DropdownMenuItem
                 className="flex items-center gap-2"
+                onClick={()=>setShowDeleteConfirmation(true)}
                 >
                     <Trash className="size-4"/>
+                    Delete
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
