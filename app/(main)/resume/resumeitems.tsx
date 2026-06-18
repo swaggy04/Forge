@@ -6,7 +6,7 @@ import { DropdownMenuTrigger,DropdownMenu, DropdownMenuItem, DropdownMenuContent
 import { ResumeServerData } from "@/lib/types"
 import { mapToResumeValues } from "@/lib/utils"
 import { formatDate } from "date-fns"
-import { MoreVerticalIcon, Trash } from "lucide-react"
+import { MoreVerticalIcon, Trash2 } from "lucide-react"
 import Link from "next/link"
 // import { DropdownMenu } from "radix-ui"
 import { useState } from "react"
@@ -71,10 +71,17 @@ function MoreMenu({resumeId}:MoreMenuProps){
                 className="flex items-center gap-2"
                 onClick={()=>setShowDeleteConfirmation(true)}
                 >
-                    <Trash className="size-4"/>
+                    <Trash2 className="size-4"/>
                     Delete
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     </>
 }
+
+interface DeleteConfirmationDialogProps{
+    resumeId:string
+    open:boolean
+    onOpenChange:(open:boolean)=>void
+
+} 
