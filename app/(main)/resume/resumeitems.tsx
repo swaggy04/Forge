@@ -2,11 +2,11 @@
 
 import PreviewPage from "@/components/previewpage"
 import { Button } from "@/components/ui/button"
-import { DropdownMenuTrigger,DropdownMenu } from "@/components/ui/dropdown-menu"
+import { DropdownMenuTrigger,DropdownMenu, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu"
 import { ResumeServerData } from "@/lib/types"
 import { mapToResumeValues } from "@/lib/utils"
 import { formatDate } from "date-fns"
-import { MoreVerticalIcon } from "lucide-react"
+import { MoreVerticalIcon, Trash } from "lucide-react"
 import Link from "next/link"
 // import { DropdownMenu } from "radix-ui"
 import { useState } from "react"
@@ -66,6 +66,13 @@ function MoreMenu({resumeId}:MoreMenuProps){
                     <MoreVerticalIcon className="size-4"/>
                 </Button>
             </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuItem
+                className="flex items-center gap-2"
+                >
+                    <Trash className="size-4"/>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
         </DropdownMenu>
     </>
 }
