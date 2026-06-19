@@ -11,6 +11,7 @@ import { MoreVerticalIcon, Trash2 } from "lucide-react"
 import Link from "next/link"
 // import { DropdownMenu } from "radix-ui"
 import { useState, useTransition } from "react"
+import { deleteResume } from "./actions"
 
 interface ResumeItemsProps{
     resume:ResumeServerData
@@ -92,5 +93,22 @@ function DeleteConfirmationDialog({resumeId,open,onOpenChange}:DeleteConfirmatio
 
     const [isPending,startTransition]=useTransition()
 
+    async function HandleDelete(){
+        startTransition(
+        async () => {
+                try {
+                    deleteResume(resumeId)
+                    onOpenChange(false)
+                } catch (error) {
+                    console.error(error)
+                    toast({
+                        variant:"destructive",
+                        description:"something went wrong"
+                    })
+                }
+        }
+        )
+
+    }
    
 }
