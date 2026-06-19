@@ -8,14 +8,18 @@ datasource db {
 }
 
 model Resume {
-  id              String           @id @default(cuid())
+  id              String             @id @default(cuid())
   userId          String
+
   title           String?
   description     String?
   photoUrl        String?
-  colorHex        String           @default("#000000")
-  borderStyle     String           @default("squircle")
+
+  colorHex        String             @default("#000000")
+  borderStyle     String             @default("squircle")
+
   summary         String?
+
   firstName       String?
   lastName        String?
   jobTitle        String?
@@ -23,42 +27,48 @@ model Resume {
   country         String?
   phone           String?
   email           String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+
+  skills          String[]
+
   workExperiences WorkExperience[]
-  skills           String[]
   educations      Education[]
 
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 
   @@map("resumes")
 }
 
 model WorkExperience {
-  id          String    @id @default(cuid())
+  id          String   @id @default(cuid())
   position    String?
   company     String?
   description String?
   startDate   DateTime?
   endDate     DateTime?
+
   resumeId    String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  resume      Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("work_experiences")
 }
 
 model Education {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
 
-  degree String?
-  school String?
+  degree    String?
+  school    String?
+
   startDate DateTime?
-  endDate DateTime?
+  endDate   DateTime?
 
-  resumeId String
+  resumeId  String
 
-resume Resume @relation(fields: [resumeId], references: [id])
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
