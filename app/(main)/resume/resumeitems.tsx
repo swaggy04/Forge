@@ -3,13 +3,14 @@
 import PreviewPage from "@/components/previewpage"
 import { Button } from "@/components/ui/button"
 import { DropdownMenuTrigger,DropdownMenu, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu"
+import { useToast } from "@/hooks/usetoast"
 import { ResumeServerData } from "@/lib/types"
 import { mapToResumeValues } from "@/lib/utils"
 import { formatDate } from "date-fns"
 import { MoreVerticalIcon, Trash2 } from "lucide-react"
 import Link from "next/link"
 // import { DropdownMenu } from "radix-ui"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 
 interface ResumeItemsProps{
     resume:ResumeServerData
@@ -85,3 +86,11 @@ interface DeleteConfirmationDialogProps{
     onOpenChange:(open:boolean)=>void
 
 } 
+
+function DeleteConfirmationDialog({resumeId,open,onOpenChange}:DeleteConfirmationDialogProps){
+    const { toast }= useToast()
+
+    const [isPending,startTransition]=useTransition()
+
+   
+}
