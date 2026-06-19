@@ -12,6 +12,8 @@ import Link from "next/link"
 // import { DropdownMenu } from "radix-ui"
 import { useState, useTransition } from "react"
 import { deleteResume } from "./actions"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import LoadingButton from "@/components/loadingbutton"
 
 interface ResumeItemsProps{
     resume:ResumeServerData
@@ -78,6 +80,12 @@ function MoreMenu({resumeId}:MoreMenuProps){
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+        <DeleteConfirmationDialog
+        resumeId={resumeId}
+        open={showDeleteConfirmation}
+        onOpenChange={setShowDeleteConfirmation}
+        />
+
     </>
 }
 
@@ -110,5 +118,36 @@ function DeleteConfirmationDialog({resumeId,open,onOpenChange}:DeleteConfirmatio
         )
 
     }
+    return (
+  <Dialog open={open} onOpenChange={onOpenChange}>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Delete resume?</DialogTitle>
+
+        <DialogDescription>
+          This will permanently delete this resume. This action
+          cannot be undone.
+        </DialogDescription>
+      </DialogHeader>
+
+      <DialogFooter>
+        <LoadingButton
+          variant="destructive"
+          onClick={HandleDelete}
+          loading={isPending}
+        >
+          Delete
+        </LoadingButton>
+
+        <Button
+          variant="secondary"
+          onClick={() => onOpenChange(false)}
+        >
+          Cancel
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+);
    
 }
