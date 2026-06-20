@@ -10,9 +10,11 @@ import { Badge } from "lucide-react";
 interface PreviewPageProps {
   resumeData: ResumeValues;
   classname?: string;
+  contentRef?:React.Ref<HTMLDivElement>
 }
 
 export default function PreviewPage({
+  contentRef,
   resumeData,
   classname,
 }: PreviewPageProps) {

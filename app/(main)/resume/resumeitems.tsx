@@ -20,7 +20,7 @@ interface ResumeItemsProps{
 }
 
 export default function ResumeItems({resume}:ResumeItemsProps){
-    
+   ////print feat start 
     const contentRef = useRef<HTMLDivElement>(null)
 
     const reacttoPrintfn = useReactToPrint({
