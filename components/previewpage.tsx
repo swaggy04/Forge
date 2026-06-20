@@ -35,6 +35,8 @@ export default function PreviewPage({
         style={{
           zoom: (1 / 794) * width,
         }}
+        ref={contentRef}
+        id="resumepreviewContent"
       >
         <PersonelInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
