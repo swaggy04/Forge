@@ -105,6 +105,7 @@ function MoreMenu({ resumeId, onPrint }: MoreMenuProps) {
             onClick={onPrint}
           >
             <DownloadIcon className="size-4" />
+            Download
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

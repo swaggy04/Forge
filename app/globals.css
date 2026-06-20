@@ -128,3 +128,20 @@
     @apply font-sans;
   }
 }
+@media print{
+  #resumepreviewContent{
+    zoom: 1 !important;
+    padding : 0;
+  }
+
+}
+
+#resumepreviewContent{
+  font-family:Inter
+}
+
+
+@page{
+  size:A4;
+  margin:0.6cm
+}
