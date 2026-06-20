@@ -10,17 +10,27 @@ import { formatDate } from "date-fns"
 import { MoreVerticalIcon, Trash2 } from "lucide-react"
 import Link from "next/link"
 // import { DropdownMenu } from "radix-ui"
-import { useState, useTransition } from "react"
+import { useRef, useState, useTransition } from "react"
 import { deleteResume } from "./actions"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import LoadingButton from "@/components/loadingbutton"
-
+import {useReactToPrint, UseReactToPrintFn} from "react-to-print"
 interface ResumeItemsProps{
     resume:ResumeServerData
 }
 
 export default function ResumeItems({resume}:ResumeItemsProps){
+    
+    const contentRef = useRef<HTMLDivElement>(null)
+
+    const reacttoPrintfn = useReactToPrint({
+        contentRef,
+        documentTitle: resume.title || " "
+    })
+
+
     const updatedResume = resume.updatedAt!== resume.createdAt
+
 
     return <div className=" relative group border rounded-lg border-transparent hover:border-border transition-colors bg-secondary">
         <div className="space-y-3">
