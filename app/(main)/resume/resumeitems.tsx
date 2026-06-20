@@ -43,7 +43,22 @@ export default function ResumeItems({ resume }: ResumeItemsProps) {
   const updatedResume = resume.updatedAt !== resume.createdAt;
 
   return (
-    <div className=" relative group border rounded-lg border-transparent hover:border-border transition-colors bg-secondary">
+   <div
+  className="
+    relative
+    group
+    overflow-hidden
+    rounded-3xl
+    border
+    border-slate-200
+    bg-white
+    shadow-sm
+    transition-all
+    duration-300
+    hover:-translate-y-1
+    hover:shadow-xl
+  "
+>
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}`}
