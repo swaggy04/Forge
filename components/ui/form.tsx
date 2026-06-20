@@ -20,10 +20,18 @@ export function FormItem({ children }: { children: React.ReactNode }) {
 
 export function FormLabel({
   children,
+  className,
 }: {
   children: React.ReactNode;
+  className?: string;
 }) {
-  return <label className="text-sm font-medium">{children}</label>;
+  return (
+    <label
+      className={`text-sm font-medium ${className ?? ""}`}
+    >
+      {children}
+    </label>
+  );
 }
 
 export function FormControl({
