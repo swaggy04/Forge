@@ -57,7 +57,8 @@ export default function PersonalInfoForm({
   const photoInputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <div className="mx-auto max-w-xl space-y-6">
+    <div className="mx-auto max-w-3xl">
+  <div className="rounded-3xl border bg-white/80 backdrop-blur-sm p-8 shadow-sm">
       <div className="space-y-1.5 text-center">
         <h2 className="text-2xl font-bold">Personal Info</h2>
 
@@ -257,5 +258,6 @@ export default function PersonalInfoForm({
         </div>
       </Form>
     </div>
+  </div>
   );
 }

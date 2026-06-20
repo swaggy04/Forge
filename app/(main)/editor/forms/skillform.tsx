@@ -44,7 +44,8 @@ export default function SkillForm({
   }, [form, resumeData, setResumeData]);
 
   return (
-    <div className="mx-auto max-w-xl space-y-6">
+    <div className="mx-auto max-w-3xl">
+  <div className="rounded-3xl border bg-white/80 backdrop-blur-sm p-8 shadow-sm">
       <div className="space-y-1.5 text-center">
         <h1 className="text-2xl font-bold">Skills</h1>
 
@@ -88,5 +89,6 @@ export default function SkillForm({
         </div>
       </Form>
     </div>
+  </div>
   );
 }

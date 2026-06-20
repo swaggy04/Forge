@@ -30,7 +30,8 @@ export default function SummaryForm({
   }, [form, resumeData, setResumeData]);
 
   return (
-    <div className="mx-auto space-y-6 max-w-xl">
+    <div className="mx-auto max-w-3xl">
+  <div className="rounded-3xl border bg-white/80 backdrop-blur-sm p-8 shadow-sm">
       <div className="space-y-1.5 text-center">
         <h1 className="text-2xl font-bold">Summary</h1>
         <p className="text-muted-foreground text-sm">add summary</p>
@@ -60,5 +61,6 @@ export default function SummaryForm({
         </form>
       </Form>
     </div>
+  </div>
   );
 }
