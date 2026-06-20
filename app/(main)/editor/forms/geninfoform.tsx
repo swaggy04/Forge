@@ -32,8 +32,8 @@ export default function GenInfoForm({resumeData,setResumeData}:EditorFormProps) 
   return (
     <div className="mx-auto max-w-3xl">
   <div className="rounded-3xl border bg-white/80 backdrop-blur-sm p-8 shadow-sm">
-      <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-bold">General info</h2>
+      <div className="mb-8 text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">General info</h2>
         <p className="text-sm text-muted-foreground">
           this will not appear in the resume
         </p>
