@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/usetoast";
 import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
-import { DownloadIcon, MoreVerticalIcon, Trash2 } from "lucide-react";
+import { DownloadIcon, MoreVerticalIcon, PrinterIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 // import { DropdownMenu } from "radix-ui"
 import { useRef, useState, useTransition } from "react";
@@ -104,8 +104,8 @@ function MoreMenu({ resumeId, onPrint }: MoreMenuProps) {
             className="flex items-center gap-2"
             onClick={onPrint}
           >
-            <DownloadIcon className="size-4" />
-            Download
+            <PrinterIcon className="size-4" />
+            Print
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
