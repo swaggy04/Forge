@@ -1,7 +1,7 @@
 import { Sparkles } from "lucide-react";
 import ResumePreview from "./ResumePreview";
 
-export default function Hero() {
+export default function Herosection() {
   return (
     <section className="py-24">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
