@@ -26,14 +26,12 @@ export default function Herosection() {
             for the modern tech era.
           </p>
 
-          <div className="mt-10 flex gap-4">
-            <button className="bg-black text-white px-8 py-3">
+          <div className="mt-10 flex gap-4 items-center justify-center ">
+            <button className="bg-black text-white px-8 py-3 rounded-xl">
               Build Your Resume
             </button>
 
-            <button className="border px-8 py-3">
-              View Templates
-            </button>
+           
           </div>
         </div>
 
