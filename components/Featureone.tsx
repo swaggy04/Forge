@@ -20,15 +20,6 @@ export default function Featureone() {
           A distraction-free, real-time experience engineered for focus.
         </p>
 
-        <div className="flex justify-center gap-4 mt-8">
-          <button className="bg-black text-white px-8 py-3">
-            Build Your Resume
-          </button>
-
-          <button className="border px-8 py-3">
-            View Templates
-          </button>
-        </div>
       </div>
 
       <SplitEditorPreview />
