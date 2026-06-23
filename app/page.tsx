@@ -4,6 +4,7 @@ import Navbar from "./(main)/resume/navbar";
 import Features from "@/components/Features";
 import Featureone from "@/components/Featureone";
 import Process from "@/components/Process";
+import Featuretwo from "@/components/feature2";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <Herosection/>
         <Features/>
         <Featureone/>
+        <Featuretwo/>
         <Process/>
         
       </main>
