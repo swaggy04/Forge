@@ -44,7 +44,12 @@ export default function WorkExpForm({ resumeData, setResumeData }: EditorFormPro
       if (!isValid) return;
       setResumeData({
         ...resumeData,
-        workexp: values.workexp?.filter((exp) => exp !== undefined) || [],
+        workexp:
+          values.workexp?.map((exp) => ({
+            ...exp,
+            startDate: exp.startDate || undefined,
+            endDate: exp.endDate || undefined,
+          })) || [],
       });
     });
     return unsubscribe;
@@ -172,6 +177,8 @@ function WorkeExperienceItem({ id, form, index, remove }: workExperienceProps) {
           <p className="text-sm text-slate-500">Position details and achievements</p>
         </div>
         <GripHorizontal
+          {...attributes}
+          {...listeners}
           className="
                     size-5
                     cursor-grab
@@ -242,8 +249,8 @@ function WorkeExperienceItem({ id, form, index, remove }: workExperienceProps) {
               <FormControl>
                 <Input
                   {...field}
+                  type="date"
                   value={String(field.value ?? "")}
-                  autoFocus
                   className="
                               h-11
                               rounded-xl
@@ -251,7 +258,7 @@ function WorkeExperienceItem({ id, form, index, remove }: workExperienceProps) {
                               bg-slate-50
                               focus:bg-white
                             "
-                />{" "}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -265,8 +272,8 @@ function WorkeExperienceItem({ id, form, index, remove }: workExperienceProps) {
               <FormControl>
                 <Input
                   {...field}
+                  type="date"
                   value={String(field.value ?? "")}
-                  autoFocus
                   className="
                               h-11
                               rounded-xl

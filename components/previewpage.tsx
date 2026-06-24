@@ -10,26 +10,25 @@ import { Badge } from "lucide-react";
 interface PreviewPageProps {
   resumeData: ResumeValues;
   classname?: string;
-  contentRef?:React.Ref<HTMLDivElement>
+  contentRef?: React.Ref<HTMLDivElement>;
+}
+function formatResumeDate(date?: string) {
+  if (!date) return "";
+
+  const parsed = new Date(date);
+
+  if (isNaN(parsed.getTime())) return "";
+
+  return formatDate(parsed, "MM/yyyy");
 }
 
-export default function PreviewPage({
-  contentRef,
-  resumeData,
-  classname,
-}: PreviewPageProps) {
+export default function PreviewPage({ contentRef, resumeData, classname }: PreviewPageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { width } = useDimensions(containerRef);
 
   return (
-    <div
-      className={cn(
-        "bg-white text-black h-fit w-full aspect-[210/297]",
-        classname,
-      )}
-      ref={containerRef}
-    >
+    <div className={cn("bg-white text-black h-fit w-full aspect-[210/297]", classname)} ref={containerRef}>
       <div
         className={cn("space-y-6 p-6", !width && "invisible")}
         style={{
@@ -41,7 +40,8 @@ export default function PreviewPage({
         <PersonelInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExpSection resumeData={resumeData} />
-        <EDucationSection resumeData={resumeData} />
+        <EducationSection resumeData={resumeData} />
+        <ProjectSection resumeData={resumeData} />
         <SkillSection resumeData={resumeData} />
       </div>
     </div>
@@ -53,24 +53,12 @@ interface ResumeSectionProp {
 }
 
 function PersonelInfoHeader({ resumeData }: ResumeSectionProp) {
-  const { photo, jobTitle, firstName, lastName, city, country, phone, email } =
-    resumeData;
-  const photoSrc =
-    typeof photo === "string"
-      ? photo
-      : photo instanceof File
-        ? URL.createObjectURL(photo)
-        : "";
+  const { photo, jobTitle, firstName, lastName, city, country, phone, email } = resumeData;
+  const photoSrc = typeof photo === "string" ? photo : photo instanceof File ? URL.createObjectURL(photo) : "";
   return (
     <div className="flex items-center gap-6">
       {photoSrc && (
-        <Image
-          src={photoSrc}
-          width={100}
-          height={100}
-          alt="your photo"
-          className="object-cover aspect-square"
-        />
+        <Image src={photoSrc} width={100} height={100} alt="your photo" className="object-cover aspect-square" />
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
@@ -109,9 +97,7 @@ function SummarySection({ resumeData }: ResumeSectionProp) {
 function WorkExpSection({ resumeData }: ResumeSectionProp) {
   const { workexp } = resumeData;
 
-  const WorkExpNotEmpty = workexp?.filter(
-    (exp) => Object.values(exp).filter(boolean).length > 0,
-  );
+  const WorkExpNotEmpty = workexp?.filter((exp) => Object.values(exp).filter(boolean).length > 0);
 
   if (!WorkExpNotEmpty?.length) return null;
 
@@ -126,8 +112,9 @@ function WorkExpSection({ resumeData }: ResumeSectionProp) {
               <span>{exp.position}</span>
               {exp.startDate && (
                 <span>
-                  {formatDate(exp.startDate, "MM/yyyy")}-{" "}
-                  {exp.endDate ? formatDate(exp.endDate, "MM/yyyy") : ""}
+                  {formatResumeDate(exp.startDate)}
+                  {" - "}
+                  {exp.endDate ? formatResumeDate(exp.endDate) : "Present"}
                 </span>
               )}
             </div>
@@ -140,14 +127,11 @@ function WorkExpSection({ resumeData }: ResumeSectionProp) {
   );
 }
 
-function EDucationSection({ resumeData }: ResumeSectionProp) {
+function EducationSection({ resumeData }: ResumeSectionProp) {
   const { educations } = resumeData;
 
-  const EducationNotEpty = educations?.filter(
-    (edu) => Object.values(edu).filter(boolean).length > 0,
-  );
-  if (!EducationNotEpty) return null;
-
+  const EducationNotEpty = educations?.filter((edu) => Object.values(edu).filter(boolean).length > 0);
+  if (!EducationNotEpty?.length) return null;
   return (
     <>
       <hr className="border-2 " />
@@ -159,12 +143,46 @@ function EDucationSection({ resumeData }: ResumeSectionProp) {
               <span>{edu.degree}</span>
               {edu.startDate && (
                 <span>
-                  {edu.startDate &&
-                    `${formatDate(edu.startDate, "MM/yyyy")} ${edu.endDate ? `-${formatDate(edu.endDate, "MM/yyyy")}` : ""}`}
+                  {formatResumeDate(edu.startDate)}
+                  {" - "}
+                  {edu.endDate ? formatResumeDate(edu.endDate) : "Present"}
                 </span>
               )}
             </div>
             <p className="text-xs font-semibold">{edu.school}</p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+function ProjectSection({ resumeData }: ResumeSectionProp) {
+  const { projects } = resumeData;
+
+  const projectNotEmpty = projects?.filter((project) => Object.values(project).filter(Boolean).length > 0);
+
+  if (!projectNotEmpty?.length) return null;
+
+  return (
+    <>
+      <hr className="border-2" />
+
+      <div className="space-y-3">
+        <h2 className="text-lg font-semibold">Projects</h2>
+
+        {projectNotEmpty.map((project, index) => (
+          <div key={index} className="break-inside-avoid space-y-1">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-sm">{project.title}</h3>
+
+              <div className="flex gap-2 text-[10px]">
+                {project.githubUrl && <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">GitHub</span>}
+
+                {project.liveUrl && <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">Live Demo</span>}
+              </div>
+            </div>
+
+            {project.description && <p className="whitespace-pre-line text-xs">{project.description}</p>}
           </div>
         ))}
       </div>
@@ -179,7 +197,6 @@ function SkillSection({ resumeData }: ResumeSectionProp) {
 
   return (
     <>
-      
       <hr className="border-2" />
 
       <div className="break-inside-avoid space-y-3">
@@ -187,10 +204,7 @@ function SkillSection({ resumeData }: ResumeSectionProp) {
 
         <div className="flex flex-wrap gap-2">
           {skills.map((skill, index) => (
-            <div
-              key={`${skill}-${index}`}
-              className="rounded-md bg-black px-2 py-1 text-sm text-white"
-            >
+            <div key={`${skill}-${index}`} className="rounded-md bg-black px-2 py-1 text-sm text-white">
               {skill}
             </div>
           ))}
