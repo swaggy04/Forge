@@ -57,5 +57,11 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     skills: data.skills,
 
     summary: data.summary || undefined,
+    projects: data.projects.map((project) => ({
+      title: project.title || undefined,
+      description: project.description || undefined,
+      githubUrl: project.githubUrl || undefined,
+      liveUrl: project.liveUrl || undefined,
+    })),
   };
 }
