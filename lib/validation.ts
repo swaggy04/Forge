@@ -14,14 +14,8 @@ export const personalInfoSchema = z.object({
     .instanceof(File)
     .nullable()
     .optional()
-    .refine(
-      (file) => !file || file.type.startsWith("image/"),
-      "must be an image file",
-    )
-    .refine(
-      (file) => !file || file.size <= 1024 * 1024 * 4,
-      "file must be less than 4mb",
-    ),
+    .refine((file) => !file || file.type.startsWith("image/"), "must be an image file")
+    .refine((file) => !file || file.size <= 1024 * 1024 * 4, "file must be less than 4mb"),
   firstName: optionalString,
   lastName: optionalString,
   jobTitle: optionalString,
@@ -49,9 +43,7 @@ export const workExperienceSchema = z.object({
 
 export type workExperienceType = z.infer<typeof workExperienceSchema>;
 
-export type workExperience = NonNullable<z.infer<typeof workExperienceSchema>["workexp"]>[number]
-
-
+export type workExperience = NonNullable<z.infer<typeof workExperienceSchema>["workexp"]>[number];
 
 export const educationSchema = z.object({
   educations: z
@@ -80,10 +72,27 @@ export const summarySchema = z.object({
 
 export type summaryType = z.infer<typeof summarySchema>;
 
+export const projectSchema = z.object({
+  projects: z
+    .array(
+      z.object({
+        title: optionalString,
+        description: optionalString,
+        githubUrl: optionalString,
+        liveUrl: optionalString,
+      }),
+    )
+    .optional(),
+});
+
+export type ProjectSectionType = z.infer<typeof projectSchema>;
+export type Project = NonNullable<z.infer<typeof projectSchema>["projects"]>[number];
+
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,
   ...personalInfoSchema.shape,
   ...workExperienceSchema.shape,
+  ...projectSchema.shape,
   ...educationSchema.shape,
   ...skillSchema.shape,
   ...summarySchema.shape,
@@ -104,12 +113,7 @@ export const generateSummarySchema = z.object({
 export type GenerateSummaryValues = z.infer<typeof generateSummarySchema>;
 
 export const generateWorkExpSchema = z.object({
-  description: z
-    .string()
-    .trim()
-    .min(20, "Please provide at least 20 characters")
-    .max(2000, "Description is too long"),
+  description: z.string().trim().min(20, "Please provide at least 20 characters").max(2000, "Description is too long"),
 });
 
-export type GenerateWorkExpValues =
-  z.infer<typeof generateWorkExpSchema>;
+export type GenerateWorkExpValues = z.infer<typeof generateWorkExpSchema>;
