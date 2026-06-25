@@ -28,7 +28,7 @@ model Resume {
   phone           String?
   email           String?
 
-  skills          String[]
+  skills          Skill[]
 
   workExperiences WorkExperience[]
   educations      Education[]
@@ -93,4 +93,29 @@ model ProjectSection {
   updatedAt DateTime @updatedAt
 
   @@map("project_section")
+}
+model Skill {
+  id         String @id @default(cuid())
+
+  name       String
+
+  category   SkillCategory
+
+  order      Int @default(0)
+
+  resume      Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  resumeId    String
+}
+enum SkillCategory {
+  LANGUAGE
+  FRONTEND
+  BACKEND
+  DATABASE
+  TOOL
+  CLOUD
+  DEVOPS
+  MOBILE
+  AI
+  CONCEPT
+  OTHER
 }
