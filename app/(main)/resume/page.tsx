@@ -32,7 +32,7 @@ export default async function Page() {
   ]);
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-[#fcf9f5]">
       <div className="mx-auto max-w-7xl px-4 py-8">
         {/* Hero */}
         <section className="mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
@@ -57,21 +57,21 @@ export default async function Page() {
                 asChild
                 size="lg"
                 className="
-  h-12
-  rounded-xl
-  border
-  border-slate-300
-  bg-white
-  px-6
-  text-slate-900
-  font-medium
-  shadow-sm
-  transition-all
-  duration-200
-  hover:border-slate-900
-  hover:bg-slate-900
-  hover:text-white
-"
+                          h-12
+                          rounded-xl
+                          border
+                          border-slate-300
+                          bg-white
+                          px-6
+                          text-slate-900
+                          font-medium
+                          shadow-sm
+                          transition-all
+                          duration-200
+                          hover:border-slate-900
+                          hover:bg-slate-900
+                          hover:text-white
+                        "
               >
                 <Link href="/editor">
                   <FilePlus className="mr-2 size-5" />
