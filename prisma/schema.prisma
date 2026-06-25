@@ -79,6 +79,7 @@ model Education {
 model ProjectSection {
   id          String   @id @default(cuid())
   title       String?
+  technologies String?
   githubUrl String?
   liveUrl   String?
   description String?

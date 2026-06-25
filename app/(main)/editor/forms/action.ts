@@ -2,6 +2,8 @@
 
 import { ai } from "@/lib/gemini";
 import {
+  generateProjectSecSchema,
+  GenerateProjectSectionValues,
   generateSummarySchema,
   GenerateSummaryValues,
   generateWorkExpSchema,
@@ -155,4 +157,32 @@ ${description}
   throw new Error(
     "Failed to generate work experience description.",
   );
+}
+
+
+export async function generateProjectSec(input:GenerateProjectSectionValues){
+
+  const {description} = generateProjectSecSchema.parse(input)
+   const systemMessage = `
+You are an expert resume writer.
+
+Your task is to improve the user's project description.
+
+Requirements:
+- Rewrite the description into professional ATS-friendly resume bullet points.
+- Improve grammar, wording, and clarity.
+- Highlight responsibilities, achievements, and impact.
+- Use strong action verbs.
+- Return 3 to 5 concise bullet points.
+- Return only the improved description.
+- Do not include headings.
+- Do not include explanations.
+`;
+
+  const userMessage = `
+Work Experience Description:
+
+${description}
+`;
+
 }
