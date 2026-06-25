@@ -73,14 +73,12 @@ export const skillCategoryEnum = z.enum([
   "OTHER",
 ]);
 export const skillSchema = z.object({
-  skills: z
-    .array(
-      z.object({
-        name: z.string().trim().min(1, "Skill is required"),
-        category: skillCategoryEnum,
-      })
-    )
-    .optional(),
+  skills: z.array(
+    z.object({
+      name: z.string().trim().min(1, "Skill is required"),
+      category: skillCategoryEnum,
+    })
+  ).optional(),
 });
 export type skillType = z.infer<typeof skillSchema>;
 

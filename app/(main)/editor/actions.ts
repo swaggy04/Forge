@@ -11,7 +11,14 @@ export async function saveResume(values: ResumeValues) {
 
   console.log("received", values);
 
-  const { photo, workexp, educations, projects, ...resumevalues } = resumeSchema.parse(values);
+  const {
+    photo,
+    workexp,
+    educations,
+    projects,
+    skills,
+    ...resumevalues
+  } = resumeSchema.parse(values);
 
   const { userId } = await auth();
 
@@ -39,9 +46,13 @@ export async function saveResume(values: ResumeValues) {
       await del(existingResume.photoUrl);
     }
 
-    const blob = await put(`resume_photos/${Date.now()}${path.extname(photo.name)}`, photo, {
-      access: "public", // change if your blob store is public
-    });
+    const blob = await put(
+      `resume_photos/${Date.now()}${path.extname(photo.name)}`,
+      photo,
+      {
+        access: "public",
+      },
+    );
 
     newPhotoUrl = blob.url;
   } else if (photo === null) {
@@ -51,6 +62,8 @@ export async function saveResume(values: ResumeValues) {
 
     newPhotoUrl = null;
   }
+
+  // ========================= UPDATE =========================
 
   if (id) {
     return prisma.resume.update({
@@ -62,14 +75,28 @@ export async function saveResume(values: ResumeValues) {
 
         photoUrl: newPhotoUrl,
 
+        skills: {
+          deleteMany: {},
+          create:
+            skills?.map((skill, index) => ({
+              name: skill.name,
+              category: skill.category,
+              order: index,
+            })) ?? [],
+        },
+
         workExperiences: {
           deleteMany: {},
           create:
             workexp?.map((exp) => ({
               ...exp,
-              startDate: exp.startDate ? new Date(exp.startDate) : undefined,
-              endDate: exp.endDate ? new Date(exp.endDate) : undefined,
-            })) || [],
+              startDate: exp.startDate
+                ? new Date(exp.startDate)
+                : undefined,
+              endDate: exp.endDate
+                ? new Date(exp.endDate)
+                : undefined,
+            })) ?? [],
         },
 
         educations: {
@@ -77,9 +104,13 @@ export async function saveResume(values: ResumeValues) {
           create:
             educations?.map((edu) => ({
               ...edu,
-              startDate: edu.startDate ? new Date(edu.startDate) : undefined,
-              endDate: edu.endDate ? new Date(edu.endDate) : undefined,
-            })) || [],
+              startDate: edu.startDate
+                ? new Date(edu.startDate)
+                : undefined,
+              endDate: edu.endDate
+                ? new Date(edu.endDate)
+                : undefined,
+            })) ?? [],
         },
 
         projects: {
@@ -87,17 +118,20 @@ export async function saveResume(values: ResumeValues) {
           create:
             projects?.map((project) => ({
               title: project.title,
-              technologies:project.technologies,
+              technologies: project.technologies,
               description: project.description,
               githubUrl: project.githubUrl,
               liveUrl: project.liveUrl,
-            })) || [],
+            })) ?? [],
         },
 
         updatedAt: new Date(),
       },
     });
   }
+
+  // ========================= CREATE =========================
+
   return prisma.resume.create({
     data: {
       ...resumevalues,
@@ -106,33 +140,50 @@ export async function saveResume(values: ResumeValues) {
 
       photoUrl: newPhotoUrl,
 
+      skills: {
+        create:
+          skills?.map((skill, index) => ({
+            name: skill.name,
+            category: skill.category,
+            order: index,
+          })) ?? [],
+      },
+
       workExperiences: {
         create:
           workexp?.map((exp) => ({
             ...exp,
-            startDate: exp.startDate ? new Date(exp.startDate) : undefined,
-            endDate: exp.endDate ? new Date(exp.endDate) : undefined,
-          })) || [],
+            startDate: exp.startDate
+              ? new Date(exp.startDate)
+              : undefined,
+            endDate: exp.endDate
+              ? new Date(exp.endDate)
+              : undefined,
+          })) ?? [],
       },
 
       educations: {
         create:
           educations?.map((edu) => ({
             ...edu,
-            startDate: edu.startDate ? new Date(edu.startDate) : undefined,
-            endDate: edu.endDate ? new Date(edu.endDate) : undefined,
-          })) || [],
+            startDate: edu.startDate
+              ? new Date(edu.startDate)
+              : undefined,
+            endDate: edu.endDate
+              ? new Date(edu.endDate)
+              : undefined,
+          })) ?? [],
       },
 
       projects: {
         create:
           projects?.map((project) => ({
             title: project.title,
-            technologies:project.technologies,
+            technologies: project.technologies,
             description: project.description,
             githubUrl: project.githubUrl,
             liveUrl: project.liveUrl,
-          })) || [],
+          })) ?? [],
       },
     },
   });

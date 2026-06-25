@@ -159,9 +159,7 @@ function EducationSection({ resumeData }: ResumeSectionProp) {
 function ProjectSection({ resumeData }: ResumeSectionProp) {
   const { projects } = resumeData;
 
-  const projectNotEmpty = projects?.filter(
-    (project) => Object.values(project).filter(Boolean).length > 0,
-  );
+  const projectNotEmpty = projects?.filter((project) => Object.values(project).filter(Boolean).length > 0);
 
   if (!projectNotEmpty?.length) return null;
 
@@ -176,47 +174,31 @@ function ProjectSection({ resumeData }: ResumeSectionProp) {
           <div key={index} className="break-inside-avoid space-y-2">
             {/* Title + Links */}
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold">
-                {project.title}
-              </h3>
+              <h3 className="text-sm font-semibold">{project.title}</h3>
 
               <div className="flex gap-2 text-[10px]">
-                {project.githubUrl && (
-                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">
-                    GitHub
-                  </span>
-                )}
+                {project.githubUrl && <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">GitHub</span>}
 
-                {project.liveUrl && (
-                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">
-                    Live Demo
-                  </span>
-                )}
+                {project.liveUrl && <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">Live Demo</span>}
               </div>
             </div>
 
             {/* Technologies */}
             {project.technologies && (
-              <div className="flex flex-wrap gap-1">
-                {project.technologies
-                  .split(",")
-                  .map((tech) => (
-                    <span
-                      key={tech.trim()}
-                      className="rounded-md border border-slate-300 bg-slate-50 px-2 py-0.5 text-[10px]"
-                    >
-                      {tech.trim()}
-                    </span>
-                  ))}
+              <div className="flex flex-wrap gap-1.5">
+                {project.technologies.split(",").map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-full border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-medium text-slate-700"
+                  >
+                    {tech.trim()}
+                  </span>
+                ))}
               </div>
             )}
 
             {/* Description */}
-            {project.description && (
-              <p className="whitespace-pre-line text-xs leading-5">
-                {project.description}
-              </p>
-            )}
+            {project.description && <p className="whitespace-pre-line text-xs leading-5">{project.description}</p>}
           </div>
         ))}
       </div>
@@ -228,21 +210,58 @@ function SkillSection({ resumeData }: ResumeSectionProp) {
 
   if (!skills?.length) return null;
 
+  const groupedSkills = skills.reduce(
+    (acc, skill) => {
+      if (!skill.name) return acc;
+
+      const category = skill.category;
+
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+
+      acc[category].push(skill.name);
+
+      return acc;
+    },
+    {} as Record<string, string[]>,
+  );
+
+  const categoryLabels: Record<string, string> = {
+    LANGUAGE: "Languages",
+    FRONTEND: "Frontend",
+    BACKEND: "Backend",
+    DATABASE: "Databases",
+    TOOL: "Tools",
+    CLOUD: "Cloud",
+    DEVOPS: "DevOps",
+    MOBILE: "Mobile",
+    AI: "AI",
+    CONCEPT: "Concepts",
+    OTHER: "Other",
+  };
+
   return (
     <>
-      <hr className="border-2" />
+      <hr className="border border-gray-300" />
 
-      <div className="break-inside-avoid space-y-3">
-        <h2 className="text-lg font-semibold">Skills</h2>
+      <section className="space-y-2 break-inside-avoid">
+        <h2 className="text-[18px] font-bold uppercase tracking-wide">
+          Skills
+        </h2>
 
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill, index) => (
-            <div key={`${skill}-${index}`} className="rounded-md bg-black px-2 py-1 text-sm text-white">
-              {skill}
+        <div className="space-y-0 text-[13px] leading-5">
+          {Object.entries(groupedSkills).map(([category, skills]) => (
+            <div key={category} className="flex">
+              <span className="inline-block w-[105px] font-bold">
+                {categoryLabels[category]}:
+              </span>
+
+              <span>{skills.join(", ")}</span>
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </>
   );
 }
