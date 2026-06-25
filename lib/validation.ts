@@ -59,9 +59,27 @@ export const educationSchema = z.object({
 });
 
 export type educationType = z.infer<typeof educationSchema>;
-
+export const skillCategoryEnum = z.enum([
+  "LANGUAGE",
+  "FRONTEND",
+  "BACKEND",
+  "DATABASE",
+  "TOOL",
+  "CLOUD",
+  "DEVOPS",
+  "MOBILE",
+  "AI",
+  "CONCEPT",
+  "OTHER",
+]);
 export const skillSchema = z.object({
-  skills: z.array(z.string().trim()).optional(),
+  skills: z.array(
+    z.object({
+      name:optionalString,
+      categories:optionalString
+    })
+  )
+  .optional
 });
 
 export type skillType = z.infer<typeof skillSchema>;
