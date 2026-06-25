@@ -3,7 +3,7 @@
 import { ai } from "@/lib/gemini";
 import {
   generateProjectSecSchema,
-  GenerateProjectSectionValues,
+  GenerateProjectSecValues,
   generateSummarySchema,
   GenerateSummaryValues,
   generateWorkExpSchema,
@@ -11,8 +11,7 @@ import {
 } from "@/lib/validation";
 
 export async function generateSummary(input: GenerateSummaryValues) {
-  const { jobTitle, workexp, educations, skills } =
-    generateSummarySchema.parse(input);
+  const { jobTitle, workexp, educations, skills } = generateSummarySchema.parse(input);
 
   if (!jobTitle && !workexp?.length && !educations?.length && !skills?.length) {
     throw new Error("Please provide some resume information first.");
@@ -79,9 +78,7 @@ ${skills?.join(", ") || "N/A"}
       console.error(`Gemini attempt ${attempt} failed:`, error);
 
       if (attempt === 3) {
-        throw new Error(
-          "AI service is currently busy. Please try again in a few moments.",
-        );
+        throw new Error("AI service is currently busy. Please try again in a few moments.");
       }
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -91,11 +88,8 @@ ${skills?.join(", ") || "N/A"}
   throw new Error("Failed to generate resume summary.");
 }
 
-export async function generateWorkExp(
-  input: GenerateWorkExpValues,
-) {
-  const { description } =
-    generateWorkExpSchema.parse(input);
+export async function generateWorkExp(input: GenerateWorkExpValues) {
+  const { description } = generateWorkExpSchema.parse(input);
 
   const systemMessage = `
 You are an expert resume writer.
@@ -126,63 +120,87 @@ ${description}
         contents: `${systemMessage}\n\n${userMessage}`,
       });
 
-      const improvedDescription =
-        response.text?.trim();
+      const improvedDescription = response.text?.trim();
 
       if (!improvedDescription) {
-        throw new Error(
-          "Gemini returned an empty response.",
-        );
+        throw new Error("Gemini returned an empty response.");
       }
 
       return improvedDescription;
     } catch (error) {
-      console.error(
-        `Work experience generation attempt ${attempt} failed:`,
-        error,
-      );
+      console.error(`Work experience generation attempt ${attempt} failed:`, error);
 
       if (attempt === 3) {
-        throw new Error(
-          "AI service is currently busy. Please try again later.",
-        );
+        throw new Error("AI service is currently busy. Please try again later.");
       }
 
-      await new Promise((resolve) =>
-        setTimeout(resolve, 2000),
-      );
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     }
   }
 
-  throw new Error(
-    "Failed to generate work experience description.",
-  );
+  throw new Error("Failed to generate work experience description.");
 }
 
+export async function generateProjectDescription(input: GenerateProjectSecValues) {
+  const { title, technologies } = generateProjectSecSchema.parse(input);
 
-export async function generateProjectSec(input:GenerateProjectSectionValues){
+  const systemMessage = `
+You are an expert software engineering resume writer.
 
-  const {description} = generateProjectSecSchema.parse(input)
-   const systemMessage = `
-You are an expert resume writer.
-
-Your task is to improve the user's project description.
+Your task is to generate a professional ATS-friendly project description.
 
 Requirements:
-- Rewrite the description into professional ATS-friendly resume bullet points.
-- Improve grammar, wording, and clarity.
-- Highlight responsibilities, achievements, and impact.
-- Use strong action verbs.
-- Return 3 to 5 concise bullet points.
-- Return only the improved description.
+- Write 3 to 5 concise resume bullet points.
+- Start each bullet point with a strong action verb.
+- Mention the technologies naturally.
+- Highlight technical implementation.
+Requirements:
+- Return 3–5 resume bullet points.
+- Do NOT use Markdown.
+- Do NOT use **bold**, __underline__, or italics.
+- Return plain text only.
+- Each bullet should start with •
+- Highlight the problem solved.
+- Highlight performance, scalability or user impact whenever appropriate.
+- Do not invent unrealistic metrics.
+- Keep each bullet concise.
+- Return only the bullet points.
 - Do not include headings.
 - Do not include explanations.
 `;
 
   const userMessage = `
-Work Experience Description:
+Project Title:
+${title}
 
-${description}
+Technologies Used:
+${technologies || "Not specified"}
 `;
 
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: `${systemMessage}\n\n${userMessage}`,
+      });
+
+      const generatedDescription = response.text?.trim();
+
+      if (!generatedDescription) {
+        throw new Error("Gemini returned an empty response.");
+      }
+
+      return generatedDescription;
+    } catch (error) {
+      console.error(`Project generation attempt ${attempt} failed:`, error);
+
+      if (attempt === 3) {
+        throw new Error("AI service is currently busy. Please try again later.");
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+  }
+
+  throw new Error("Failed to generate project description.");
 }

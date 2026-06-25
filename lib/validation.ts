@@ -78,7 +78,7 @@ export const projectSchema = z.object({
       z.object({
         title: optionalString,
         description: optionalString,
-        technologies:optionalString,
+        technologies: optionalString,
         githubUrl: optionalString,
         liveUrl: optionalString,
       }),
@@ -120,8 +120,9 @@ export const generateWorkExpSchema = z.object({
 export type GenerateWorkExpValues = z.infer<typeof generateWorkExpSchema>;
 
 export const generateProjectSecSchema = z.object({
-  description: z.string().trim().min(20, "Please provide at least 20 characters").max(2000, "Description is too long"),
-  
-})
+  title: z.string().trim().min(2, "Project title is required"),
+  technologies: optionalString,
+});
 
-export type GenerateProjectSectionValues = z.infer<typeof generateProjectSecSchema>
+export type GenerateProjectSecValues = z.infer<typeof generateProjectSecSchema>;
+

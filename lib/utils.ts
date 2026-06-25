@@ -59,6 +59,7 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     summary: data.summary || undefined,
     projects: data.projects.map((project) => ({
       title: project.title || undefined,
+      technologies:project.technologies || undefined,
       description: project.description || undefined,
       githubUrl: project.githubUrl || undefined,
       liveUrl: project.liveUrl || undefined,

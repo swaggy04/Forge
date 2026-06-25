@@ -159,7 +159,9 @@ function EducationSection({ resumeData }: ResumeSectionProp) {
 function ProjectSection({ resumeData }: ResumeSectionProp) {
   const { projects } = resumeData;
 
-  const projectNotEmpty = projects?.filter((project) => Object.values(project).filter(Boolean).length > 0);
+  const projectNotEmpty = projects?.filter(
+    (project) => Object.values(project).filter(Boolean).length > 0,
+  );
 
   if (!projectNotEmpty?.length) return null;
 
@@ -171,25 +173,56 @@ function ProjectSection({ resumeData }: ResumeSectionProp) {
         <h2 className="text-lg font-semibold">Projects</h2>
 
         {projectNotEmpty.map((project, index) => (
-          <div key={index} className="break-inside-avoid space-y-1">
+          <div key={index} className="break-inside-avoid space-y-2">
+            {/* Title + Links */}
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-sm">{project.title}</h3>
+              <h3 className="text-sm font-semibold">
+                {project.title}
+              </h3>
 
               <div className="flex gap-2 text-[10px]">
-                {project.githubUrl && <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">GitHub</span>}
+                {project.githubUrl && (
+                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">
+                    GitHub
+                  </span>
+                )}
 
-                {project.liveUrl && <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">Live Demo</span>}
+                {project.liveUrl && (
+                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">
+                    Live Demo
+                  </span>
+                )}
               </div>
             </div>
 
-            {project.description && <p className="whitespace-pre-line text-xs">{project.description}</p>}
+            {/* Technologies */}
+            {project.technologies && (
+              <div className="flex flex-wrap gap-1">
+                {project.technologies
+                  .split(",")
+                  .map((tech) => (
+                    <span
+                      key={tech.trim()}
+                      className="rounded-md border border-slate-300 bg-slate-50 px-2 py-0.5 text-[10px]"
+                    >
+                      {tech.trim()}
+                    </span>
+                  ))}
+              </div>
+            )}
+
+            {/* Description */}
+            {project.description && (
+              <p className="whitespace-pre-line text-xs leading-5">
+                {project.description}
+              </p>
+            )}
           </div>
         ))}
       </div>
     </>
   );
 }
-
 function SkillSection({ resumeData }: ResumeSectionProp) {
   const { skills } = resumeData;
 

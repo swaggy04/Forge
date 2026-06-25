@@ -29,6 +29,7 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 import GenerateWorkExpButton from "./generateworkexpbttn";
+import GenerateProjectSecButton from "./generateprojectdescriptionbttn";
 
 export default function ProjectForm({ resumeData, setResumeData }: EditorFormProps) {
   const form = useForm<ProjectSectionType>({
@@ -116,10 +117,11 @@ export default function ProjectForm({ resumeData, setResumeData }: EditorFormPro
                         "
                 onClick={() =>
                   append({
-                    title:"",
-                    description:"",
-                    liveUrl:"",
-                    githubUrl:""
+                    title: "",
+                    technologies: "",
+                    description: "",
+                    liveUrl: "",
+                    githubUrl: "",
                   })
                 }
               >
@@ -141,20 +143,8 @@ interface ProjectItemProps {
   remove: (index: number) => void;
 }
 
-function ProjectItem({
-  id,
-  form,
-  index,
-  remove,
-}: ProjectItemProps) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id });
+function ProjectItem({ id, form, index, remove }: ProjectItemProps) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
   return (
     <div
@@ -175,19 +165,14 @@ function ProjectItem({
         transition-all
         hover:shadow-md
         `,
-        isDragging &&
-          "relative z-50 cursor-grabbing border-slate-300 shadow-2xl",
+        isDragging && "relative z-50 cursor-grabbing border-slate-300 shadow-2xl",
       )}
     >
       <div className="flex items-center justify-between border-b pb-4">
         <div>
-          <h3 className="font-semibold text-slate-900">
-            Project {index + 1}
-          </h3>
+          <h3 className="font-semibold text-slate-900">Project {index + 1}</h3>
 
-          <p className="text-sm text-slate-500">
-            Showcase your best work
-          </p>
+          <p className="text-sm text-slate-500">Showcase your best work</p>
         </div>
 
         <GripHorizontal
@@ -226,6 +211,21 @@ function ProjectItem({
           </FormItem>
         )}
       />
+      <FormField
+        control={form.control}
+        name={`projects.${index}.technologies`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Technologies Used</FormLabel>
+
+            <FormControl>
+              <Input {...field} value={String(field.value ?? "")} placeholder="React, Next.js, Prisma, PostgreSQL" />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
       <div className="grid gap-4 md:grid-cols-2">
         <FormField
@@ -238,7 +238,7 @@ function ProjectItem({
               <FormControl>
                 <Input
                   {...field}
-                 value={String(field.value ?? "")}
+                  value={String(field.value ?? "")}
                   placeholder="https://github.com/..."
                   className="
                     h-11
@@ -263,7 +263,7 @@ function ProjectItem({
               <FormControl>
                 <Input
                   {...field}
-                 value={String(field.value ?? "")}
+                  value={String(field.value ?? "")}
                   placeholder="https://forge.vercel.app"
                   className="
                     h-11
@@ -278,6 +278,20 @@ function ProjectItem({
           )}
         />
       </div>
+      <div className="flex justify-end">
+  <GenerateProjectSecButton
+    title={form.watch(`projects.${index}.title`) ?? ""}
+    technologies={
+      form.watch(`projects.${index}.technologies`) ?? ""
+    }
+    onGeneratedDescription={(description) =>
+      form.setValue(
+        `projects.${index}.description`,
+        description,
+      )
+    }
+  />
+</div>
 
       <FormField
         control={form.control}
@@ -289,7 +303,7 @@ function ProjectItem({
             <FormControl>
               <Textarea
                 {...field}
-               value={String(field.value ?? "")}
+                value={String(field.value ?? "")}
                 placeholder="Describe the project, technologies used, and impact."
                 className="
                   min-h-[140px]
