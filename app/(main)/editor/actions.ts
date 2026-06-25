@@ -87,6 +87,7 @@ export async function saveResume(values: ResumeValues) {
           create:
             projects?.map((project) => ({
               title: project.title,
+              technologies:project.technologies,
               description: project.description,
               githubUrl: project.githubUrl,
               liveUrl: project.liveUrl,
@@ -127,6 +128,7 @@ export async function saveResume(values: ResumeValues) {
         create:
           projects?.map((project) => ({
             title: project.title,
+            technologies:project.technologies,
             description: project.description,
             githubUrl: project.githubUrl,
             liveUrl: project.liveUrl,
