@@ -54,12 +54,15 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
       endDate: edu.endDate?.toISOString().split("T")[0],
     })),
 
-    skills: data.skills,
-
+    skills: data.skills.map((skill) => ({
+      name: skill.name ?? "",
+      category: skill.category,
+    })),
+    
     summary: data.summary || undefined,
     projects: data.projects.map((project) => ({
       title: project.title || undefined,
-      technologies:project.technologies || undefined,
+      technologies: project.technologies || undefined,
       description: project.description || undefined,
       githubUrl: project.githubUrl || undefined,
       liveUrl: project.liveUrl || undefined,

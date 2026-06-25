@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/usetoast";
 import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
-import { DownloadIcon, MoreVerticalIcon, PrinterIcon, Trash2 } from "lucide-react";
+import {  MoreVerticalIcon, PrinterIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 // import { DropdownMenu } from "radix-ui"
 import { useRef, useState, useTransition } from "react";
@@ -26,7 +26,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import LoadingButton from "@/components/loadingbutton";
-import { useReactToPrint, UseReactToPrintFn } from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 interface ResumeItemsProps {
   resume: ResumeServerData;
 }

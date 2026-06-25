@@ -9,7 +9,8 @@ export interface EditorFormProps {
 export const resumeDataInclude = {
   workExperiences: true,
   educations: true,
-  projects:true
+  projects:true,
+  skills:true
 } satisfies Prisma.ResumeInclude;
 
 export type ResumeServerData = Prisma.ResumeGetPayload<{
