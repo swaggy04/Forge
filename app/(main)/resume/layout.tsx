@@ -9,9 +9,11 @@ export default function ResumeLayout({
 }) {
   return (
     <SidebarProvider>
+      <div>
       <AppSidebar />
+      </div>
 
-      <main className="flex-1 bg-amber-600">
+      <main className="flex-1">
         <div className="mx-auto max-w-7xl p-8">
           {children}
         </div>
