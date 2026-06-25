@@ -117,3 +117,9 @@ export const generateWorkExpSchema = z.object({
 });
 
 export type GenerateWorkExpValues = z.infer<typeof generateWorkExpSchema>;
+
+export const generateProjectSecSchema = z.object({
+  description: z.string().trim().min(20, "Please provide at least 20 characters").max(2000, "Description is too long"),
+})
+
+export type GenerateProjectSectionValues = z.infer<typeof generateProjectSecSchema>

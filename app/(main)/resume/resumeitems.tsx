@@ -38,6 +38,20 @@ export default function ResumeItems({ resume }: ResumeItemsProps) {
   const reacttoPrintfn = useReactToPrint({
     contentRef,
     documentTitle: resume.title || " ",
+    onBeforePrint: async () => {
+      if (contentRef.current) {
+        const element = contentRef.current;
+        const H = element.scrollHeight;
+        const targetHeight = 1077; // A4 height at 96 DPI (1123px) - 2 * 0.6cm margin (45.3px)
+        const scale = H > targetHeight ? targetHeight / H : 1;
+        element.style.setProperty("--print-scale", scale.toString());
+      }
+    },
+    onAfterPrint: () => {
+      if (contentRef.current) {
+        contentRef.current.style.removeProperty("--print-scale");
+      }
+    },
   });
 
   const updatedResume = resume.updatedAt !== resume.createdAt;

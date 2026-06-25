@@ -121,27 +121,30 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
 }
-@media print{
-  #resumepreviewContent{
-    zoom: 1 !important;
-    padding : 0;
+
+@media print {
+  #resumepreviewContent {
+    zoom: var(--print-scale, 1) !important;
+    padding: 0;
   }
 
 }
 
-#resumepreviewContent{
-  font-family:Inter
+#resumepreviewContent {
+  font-family: Inter
 }
 
 
-@page{
-  size:A4;
-  margin:0.6cm
+@page {
+  size: A4;
+  margin: 0.6cm
 }
