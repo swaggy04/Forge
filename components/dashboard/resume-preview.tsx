@@ -1,4 +1,8 @@
+"use client"
 import { ResumeServerData } from "@/lib/types";
+
+
+
 
 interface ResumePreviewProps {
   resume: ResumeServerData;

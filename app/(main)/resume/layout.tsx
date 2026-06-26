@@ -1,6 +1,9 @@
 import AppSidebar from "@/components/dashboard/sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
 
 export default function ResumeLayout({
   children,
@@ -9,15 +12,15 @@ export default function ResumeLayout({
 }) {
   return (
     <SidebarProvider>
-      <div>
-      <AppSidebar />
-      </div>
 
-      <main className="flex-1">
-        <div className="mx-auto max-w-7xl p-8">
-          {children}
-        </div>
-      </main>
+      <AppSidebar />
+
+      <SidebarInset className="bg-[#FCF9F5]">
+
+        {children}
+
+      </SidebarInset>
+
     </SidebarProvider>
   );
 }
