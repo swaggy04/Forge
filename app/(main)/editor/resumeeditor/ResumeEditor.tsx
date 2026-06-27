@@ -39,14 +39,14 @@ const [resumeData, setResumeData] = useState<ResumeValues>(
   )?.component;
 
   return (
-    <div className="w-full min-h-screen flex flex-col">
-      <header className="w-full text-center py-4 border-b-2">
+   <div className="min-h-screen bg-[#FCF9F5] text-[#1C1C1A] flex flex-col">
+      {/* <header className="w-full text-center py-4 border-b-2">
         <h1 className="font-black text-5xl">Design Your Resume</h1>
         <p>description</p>
-      </header>
+      </header> */}
 
       <main className="relative grow">
-        <div className="absolute inset-0 flex">
+        <div className="absolute inset-0 flex ">
           <div className="md:w-1/2 w-full p-3 overflow-y-auto flex flex-col items-center space-y-6">
             <div className={cn("w-full max-w-2xl flex justify-center md:block",
               showSmPreview && "hidden"
@@ -57,7 +57,7 @@ const [resumeData, setResumeData] = useState<ResumeValues>(
               />
             </div>
 
-            <div className="w-full max-w-2xl">
+            <div className="w-full max-w-2xl  bg-[#FCF9F5]">
               {FormComponent && <FormComponent 
               resumeData={resumeData}
               setResumeData={setResumeData}
