@@ -55,7 +55,7 @@ export function PrintProvider({
 
       {resume && (
         <div
-          className="fixed left-[-9999px] top-0"
+          className="fixed -left-2499.75 top-0"
           aria-hidden
         >
           <PreviewPage

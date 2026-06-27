@@ -1,5 +1,6 @@
 import { Sparkles } from "lucide-react";
 import ResumePreview from "./ResumePreview";
+import Link from "next/link";
 
 export default function Herosection() {
   return (
@@ -27,9 +28,9 @@ export default function Herosection() {
           </p>
 
           <div className="mt-10 flex gap-4 items-center justify-center ">
-            <button className="bg-black text-white px-8 py-3 rounded-xl">
+            <Link href={"/editor"} className="bg-black text-white px-8 py-3 rounded-xl">
               Build Your Resume
-            </button>
+            </Link>
 
            
           </div>
