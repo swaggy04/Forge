@@ -5,6 +5,7 @@ import Features from "@/components/Features";
 import Featureone from "@/components/Featureone";
 import Process from "@/components/Process";
 import Featuretwo from "@/components/feature2";
+import CtaSection from "@/components/cta";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <Featureone/>
         <Featuretwo/>
         <Process/>
+        <CtaSection/>
         
       </main>
     </>
