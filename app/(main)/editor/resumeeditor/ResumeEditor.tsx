@@ -40,11 +40,6 @@ const [resumeData, setResumeData] = useState<ResumeValues>(
 
   return (
    <div className="min-h-screen bg-[#FCF9F5] text-[#1C1C1A] flex flex-col">
-      {/* <header className="w-full text-center py-4 border-b-2">
-        <h1 className="font-black text-5xl">Design Your Resume</h1>
-        <p>description</p>
-      </header> */}
-
       <main className="relative grow">
         <div className="absolute inset-0 flex ">
           <div className="md:w-1/2 w-full p-3 overflow-y-auto flex flex-col items-center space-y-6">

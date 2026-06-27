@@ -3,13 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
-
 import { ResumeServerData } from "@/lib/types";
-import { mapToResumeValues } from "@/lib/utils";
-
-import PreviewPage from "@/components/previewpage";
 import ResumePreview from "./resume-preview";
 import MoreMenu from "../moremenu";
 
