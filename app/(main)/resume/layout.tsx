@@ -1,26 +1,13 @@
-import AppSidebar from "@/components/dashboard/sidebar";
-
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar";
-
 export default function ResumeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider>
-
-      <AppSidebar />
-
-      <SidebarInset className="bg-[#FCF9F5]">
-
+    <main className="min-h-screen bg-[#FCF9F5]">
+      <div className="mx-auto max-w-7xl">
         {children}
-
-      </SidebarInset>
-
-    </SidebarProvider>
+      </div>
+    </main>
   );
 }

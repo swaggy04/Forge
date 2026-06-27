@@ -60,8 +60,7 @@ export default function ResumeItems({
       >
         <div className="absolute right-3 top-3 z-20">
           <MoreMenu
-            resumeId={resume.id}
-            onPrint={reactToPrint}
+            resume={resume}
           />
         </div>
 
