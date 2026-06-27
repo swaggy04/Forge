@@ -91,12 +91,12 @@ export default function Footer({
           >
             {isSaving ? (
               <>
-                <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+                <div className="h-2 w-2 animate-pulse" />
                 Saving...
               </>
             ) : (
               <>
-                <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                <div className="h-2 w-2" />
                 Saved
               </>
             )}
