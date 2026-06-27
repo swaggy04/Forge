@@ -30,17 +30,21 @@ import {
 import { deleteResume } from "@/app/(main)/resume/actions";
 import { useToast } from "@/hooks/usetoast";
 
+import { ResumeServerData } from "@/lib/types";
+import { usePrintResume } from "./printcontext";
+
+
 interface MoreMenuProps {
-  resumeId: string;
-  onPrint: () => void;
+  resume: ResumeServerData;
 }
 
 export default function MoreMenu({
-  resumeId,
-  onPrint,
+  resume,
 }: MoreMenuProps) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] =
     useState(false);
+
+  const { printResume } = usePrintResume();
 
   return (
     <>
@@ -56,13 +60,15 @@ export default function MoreMenu({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={onPrint}>
+          <DropdownMenuItem
+            onClick={() => printResume(resume)}
+          >
             <PrinterIcon className="mr-2 h-4 w-4" />
             Print
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            className="text-red-600"
+            className="text-red-600 focus:text-red-600"
             onClick={() =>
               setShowDeleteConfirmation(true)
             }
@@ -74,7 +80,7 @@ export default function MoreMenu({
       </DropdownMenu>
 
       <DeleteConfirmationDialog
-        resumeId={resumeId}
+        resumeId={resume.id}
         open={showDeleteConfirmation}
         onOpenChange={setShowDeleteConfirmation}
       />

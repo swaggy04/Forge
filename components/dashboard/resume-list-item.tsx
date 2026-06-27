@@ -17,30 +17,9 @@ interface ResumeListItemProps {
   index: number;
 }
 
-export default function ResumeListItem({
-  resume,
-  index,
-}: ResumeListItemProps) {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const reactToPrint = useReactToPrint({
-    contentRef,
-    documentTitle: resume.title || "Resume",
-  });
-
+export default function ResumeListItem({ resume, index }: ResumeListItemProps) {
   return (
     <>
-      {/* Hidden printable resume */}
-      {/* <div
-        className="fixed left-[-9999px] top-0"
-        aria-hidden
-      >
-        <PreviewPage
-          resumeData={mapToResumeValues(resume)}
-          contentRef={contentRef}
-        />
-      </div> */}
-
       <div
         className="
           group
@@ -58,34 +37,22 @@ export default function ResumeListItem({
       >
         {/* More Menu */}
         <div className="absolute right-3 top-3 ">
-           <MoreMenu
-            resumeId={resume.id}
-            onPrint={reactToPrint}
-          /> 
-          
+          <MoreMenu resume={resume} />
         </div>
 
-        <Link
-          href={`/editor?resumeId=${resume.id}`}
-          className="block p-6 pr-14"
-        >
+        <Link href={`/editor?resumeId=${resume.id}`} className="block p-6 pr-14">
           <p className="text-[11px] uppercase tracking-[0.18em] text-[#8A847D]">
             Resume {String(index + 2).padStart(2, "0")}
           </p>
 
-          <h3 className="mt-3 text-lg font-semibold text-[#1C1C1A]">
-            {resume.title || "Untitled Resume"}
-          </h3>
+          <h3 className="mt-3 text-lg font-semibold text-[#1C1C1A]">{resume.title || "Untitled Resume"}</h3>
 
           <div className="mt-6 flex items-center">
             <p className="text-sm text-[#6A655F]">
               Updated{" "}
-              {formatDistanceToNow(
-                new Date(resume.updatedAt),
-                {
-                  addSuffix: true,
-                }
-              )}
+              {formatDistanceToNow(new Date(resume.updatedAt), {
+                addSuffix: true,
+              })}
             </p>
 
             <ArrowUpRight

@@ -1,8 +1,8 @@
 import Dashboard from "@/components/dashboard/dashboard";
+import { PrintProvider } from "@/components/printcontext";
 import { prisma } from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
-
 
 export default async function Page() {
   const { userId } = await auth();
@@ -17,5 +17,9 @@ export default async function Page() {
     include: resumeDataInclude,
   });
 
-  return <Dashboard resumes={resumes} />;
+  return (
+    <PrintProvider>
+      <Dashboard resumes={resumes} />
+    </PrintProvider>
+  );
 }

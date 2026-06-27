@@ -17,34 +17,12 @@ interface CurrentResumeProps {
   resume: ResumeServerData;
 }
 
-export default function CurrentResume({
-  resume,
-}: CurrentResumeProps) {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const reactToPrint = useReactToPrint({
-    contentRef,
-    documentTitle: resume.title || "Resume",
-  });
-
+export default function CurrentResume({ resume }: CurrentResumeProps) {
   return (
     <>
-      {/* Hidden printable resume */}
-      {/* <div
-        className="fixed left-[-9999px] top-0 opacity-0 pointer-events-none"
-        aria-hidden
-      >
-        <PreviewPage
-          resumeData={mapToResumeValues(resume)}
-          contentRef={contentRef}
-        />
-      </div> */}
-
       <section className="md:col-span-3">
         <div className="mb-5 flex items-end justify-between">
-          <h2 className="font-serif text-3xl text-[#1C1C1A]">
-            Continue Editing
-          </h2>
+          <h2 className="font-serif text-3xl text-[#1C1C1A]">Continue Editing</h2>
 
           <Link
             href={`/editor?resumeId=${resume.id}`}
@@ -71,35 +49,22 @@ export default function CurrentResume({
         >
           {/* More Menu */}
           <div className="absolute right-4 top-4 z-50">
-            <MoreMenu
-              resumeId={resume.id}
-              onPrint={reactToPrint}
-            />
+            <MoreMenu resume={resume} />
           </div>
 
-          <Link
-            href={`/editor?resumeId=${resume.id}`}
-            className="block"
-          >
+          <Link href={`/editor?resumeId=${resume.id}`} className="block">
             <ResumePreview resume={resume} />
 
             <div className="border-t border-[#ECE7E1] p-6">
-              <p className="text-xs uppercase tracking-[0.15em] text-[#6A655F]">
-                Current Draft
-              </p>
+              <p className="text-xs uppercase tracking-[0.15em] text-[#6A655F]">Current Draft</p>
 
-              <h3 className="mt-2 font-serif text-4xl text-[#1C1C1A]">
-                {resume.title || "Untitled Resume"}
-              </h3>
+              <h3 className="mt-2 font-serif text-4xl text-[#1C1C1A]">{resume.title || "Untitled Resume"}</h3>
 
               <p className="mt-4 max-w-xl text-[#6A655F] leading-7">
                 Last edited{" "}
-                {formatDistanceToNow(
-                  new Date(resume.updatedAt),
-                  {
-                    addSuffix: true,
-                  }
-                )}
+                {formatDistanceToNow(new Date(resume.updatedAt), {
+                  addSuffix: true,
+                })}
               </p>
             </div>
           </Link>
