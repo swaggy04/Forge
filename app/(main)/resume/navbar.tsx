@@ -15,6 +15,11 @@ export default function Navbar() {
                 />
                 <span className="font-bold text-3xl m-2 p-2"> Forge</span>
             </Link>
+            <div className="flex items-center gap-14 p-5">
+                <div>Dashboard</div>
+                <div>Editor</div>
+                <div>About</div>
+            </div>
 
             <UserButton
                 appearance={{
