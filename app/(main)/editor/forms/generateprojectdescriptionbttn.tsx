@@ -171,7 +171,7 @@ function InputDialog({ open, onOpenChange, onGeneratedDescription }: InputDialog
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="write details about projects"
+                      placeholder="write details about technologies used in the project"
                       className="
             h-11
             rounded-xl

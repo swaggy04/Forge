@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { EditorFormProps } from "@/lib/types";
-import { projectSchema, ProjectSectionType, workExperienceSchema, workExperienceType } from "@/lib/validation";
+import { projectSchema, ProjectSectionType} from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { GripHorizontal, Keyboard, PlusIcon } from "lucide-react";
+import { GripHorizontal,  PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import {
@@ -28,7 +28,6 @@ import {
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
-import GenerateWorkExpButton from "./generateworkexpbttn";
 import GenerateProjectSecButton from "./generateprojectdescriptionbttn";
 
 export default function ProjectForm({ resumeData, setResumeData }: EditorFormProps) {
@@ -279,19 +278,12 @@ function ProjectItem({ id, form, index, remove }: ProjectItemProps) {
         />
       </div>
       <div className="flex justify-end">
-  <GenerateProjectSecButton
-    title={form.watch(`projects.${index}.title`) ?? ""}
-    technologies={
-      form.watch(`projects.${index}.technologies`) ?? ""
-    }
-    onGeneratedDescription={(description) =>
-      form.setValue(
-        `projects.${index}.description`,
-        description,
-      )
-    }
-  />
-</div>
+        <GenerateProjectSecButton
+          title={form.watch(`projects.${index}.title`) ?? ""}
+          technologies={form.watch(`projects.${index}.technologies`) ?? ""}
+          onGeneratedDescription={(description) => form.setValue(`projects.${index}.description`, description)}
+        />
+      </div>
 
       <FormField
         control={form.control}
