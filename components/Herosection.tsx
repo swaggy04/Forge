@@ -28,7 +28,7 @@ export default function Herosection() {
           </p>
 
           <div className="mt-10 flex gap-4 items-center justify-center ">
-            <Link href={"/editor"} className="bg-black text-white px-8 py-3 rounded-xl">
+            <Link href={"/editor"} className="mt-8 bg-black text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition">
               Build Your Resume
             </Link>
 
