@@ -131,20 +131,47 @@
   }
 }
 
-@media print {
-  #resumepreviewContent {
-    zoom: var(--print-scale, 1) !important;
-    padding: 0;
-  }
-
-}
-
-#resumepreviewContent {
-  font-family: Inter
-}
-
+/* ---------------- PRINT ---------------- */
 
 @page {
-  size: A4;
-  margin: 0.6cm
+  size: A4 portrait;
+  margin: 8mm;
+}
+
+@media print {
+
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+    background: white;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #resumePreviewContent {
+    width: 194mm;
+    min-height: 281mm;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    zoom: 1 !important;
+  }
+
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+#resumePreviewContent {
+  font-family: Inter, sans-serif;
 }
