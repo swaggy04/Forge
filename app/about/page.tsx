@@ -48,7 +48,9 @@ export default function AboutSection() {
         <div className="mt-20 grid gap-8 md:grid-cols-3">
           {features.map((feature) => (
             <div
-              key={feature.title}>
+              key={feature.title}
+              className=" p-8 "
+            >
               <feature.icon
                 className="mb-6 h-10 w-10 text-[#1C1C1A]"
                 strokeWidth={1.5}

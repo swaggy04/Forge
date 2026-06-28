@@ -16,7 +16,7 @@ export default function SplitEditorPreview() {
               </label>
 
               <div className="border bg-white p-3 mt-2">
-                Sarah Jenkins
+                Swagat padhi
               </div>
             </div>
 
@@ -42,11 +42,11 @@ export default function SplitEditorPreview() {
         <div className="p-10">
           <div className="text-center border-b pb-6">
             <h3 className="font-serif text-3xl">
-              Sarah Jenkins
+              Swagat Padhi
             </h3>
 
             <p className="uppercase tracking-[0.2em] text-xs text-neutral-500">
-              Product Director
+              Product Designer
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export default function SplitEditorPreview() {
             </p>
 
             <p className="text-neutral-500 text-sm">
-              2020 — Present
+              2027 — Present
             </p>
           </div>
         </div>
