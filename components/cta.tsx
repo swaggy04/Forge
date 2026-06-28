@@ -27,7 +27,7 @@ export default function CtaSection() {
               inline-flex
               items-center
               justify-center
-              rounded-lg
+              
               bg-[#1C1C1A]
               px-8
               py-3
@@ -49,7 +49,7 @@ export default function CtaSection() {
               inline-flex
               items-center
               justify-center
-              rounded-lg
+              
               border
               border-[#D8CEC2]
               bg-white
